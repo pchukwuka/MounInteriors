@@ -1447,3 +1447,99 @@ adminLoginBtn?.addEventListener('click', async () => {
     adminLoginBtn.disabled    = false;
   }
 });
+/* ============================================================
+   PORTFOLIO — filter + modal
+============================================================ */
+
+// Filter tabs
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('.pf-filter');
+  if (!btn) return;
+
+  // Update active button
+  document.querySelectorAll('.pf-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+
+  const filter = btn.dataset.filter;
+  const cards  = document.querySelectorAll('.pf-card');
+  let visible  = 0;
+
+  cards.forEach(card => {
+    const match = filter === 'all' || card.dataset.category === filter;
+    card.classList.toggle('hidden', !match);
+    if (match) visible++;
+  });
+
+  const showingEl = document.getElementById('pf-showing');
+  if (showingEl) {
+    showingEl.textContent = `Showing ${visible} of ${cards.length}`;
+  }
+});
+
+// Open modal
+function openPfModal(card) {
+  const imgDiv   = card.querySelector('.pf-card__img');
+  const bgImg    = imgDiv ? imgDiv.style.backgroundImage : '';
+  const badge    = card.querySelector('.pf-card__badge')  ? card.querySelector('.pf-card__badge').textContent  : '';
+  const title    = card.querySelector('.pf-card__title')  ? card.querySelector('.pf-card__title').textContent  : '';
+  const meta     = card.querySelector('.pf-card__meta')   ? card.querySelector('.pf-card__meta').textContent   : '';
+
+  document.getElementById('pf-modal-img').style.backgroundImage = bgImg;
+  document.getElementById('pf-modal-badge').textContent  = badge;
+  document.getElementById('pf-modal-title').textContent  = title;
+  document.getElementById('pf-modal-meta').textContent   = meta;
+
+  document.getElementById('pf-modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+// Close modal
+function closePfModal() {
+  document.getElementById('pf-modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+// Close on Escape key
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closePfModal();
+});
+
+/* ============================================================
+   PORTFOLIO — filter + modal
+============================================================ */
+
+document.addEventListener('click', function(e) {
+  const btn = e.target.closest('.pf-filter');
+  if (!btn) return;
+  document.querySelectorAll('.pf-filter').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  const filter = btn.dataset.filter;
+  const cards  = document.querySelectorAll('.pf-card');
+  let visible  = 0;
+  cards.forEach(card => {
+    const match = filter === 'all' || card.dataset.category === filter;
+    card.classList.toggle('hidden', !match);
+    if (match) visible++;
+  });
+  const el = document.getElementById('pf-showing');
+  if (el) el.textContent = `Showing ${visible} of ${cards.length}`;
+});
+
+function openPfModal(card) {
+  const bgImg = card.querySelector('.pf-card__img') ? card.querySelector('.pf-card__img').style.backgroundImage : '';
+  document.getElementById('pf-modal-img').style.backgroundImage   = bgImg;
+  document.getElementById('pf-modal-badge').textContent  = card.querySelector('.pf-card__badge')  ? card.querySelector('.pf-card__badge').textContent  : '';
+  document.getElementById('pf-modal-title').textContent  = card.querySelector('.pf-card__title')  ? card.querySelector('.pf-card__title').textContent  : '';
+  document.getElementById('pf-modal-meta').textContent   = card.querySelector('.pf-card__meta')   ? card.querySelector('.pf-card__meta').textContent   : '';
+  document.getElementById('pf-modal-overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closePfModal() {
+  document.getElementById('pf-modal-overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closePfModal();
+});
