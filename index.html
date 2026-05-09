@@ -11,6 +11,10 @@
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=DM+Sans:wght@300;400;500;600&display=swap"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
   </head>
   <body>
     <!-- ============================================================
@@ -299,13 +303,13 @@
             >
               Shop Now
             </button>
-            <a
-              href="https://wa.me/250700000000?text=Hello%20MOUN%2C%20I%27d%20like%20to%20enquire%20about%20your%20services"
+            <button
               class="btn btn--ghost"
-              target="_blank"
-              rel="noopener"
-              >Order on WhatsApp</a
+              onclick="showPage('portfolio')"
+              type="button"
             >
+              View Our Work
+            </button>
           </div>
         </div>
         <div class="hero__scroll-hint">Scroll ↓</div>
@@ -907,39 +911,47 @@
        PAGE: PORTFOLIO
     ============================================================ -->
     <main id="page-portfolio" class="page">
-
-      <!-- Portfolio Hero -->
       <section class="pf-hero">
         <div class="pf-hero__inner container">
           <h1 class="pf-hero__title">Our Portfolio</h1>
           <p class="pf-hero__sub">
-            Explore our collection of interior designs, 3D visualizations,
-            and completed home transformations for clients in Kigali.
+            Explore our collection of interior designs, 3D visualizations, and
+            completed home transformations for clients in Kigali.
           </p>
         </div>
       </section>
 
-      <!-- Filter + Grid -->
       <section class="pf-grid-section">
         <div class="container">
-
-          <!-- Filter tabs -->
           <div class="pf-filters" id="pf-filters">
             <button class="pf-filter active" data-filter="all">All (12)</button>
-            <button class="pf-filter" data-filter="living">Living Room (4)</button>
+            <button class="pf-filter" data-filter="living">
+              Living Room (4)
+            </button>
             <button class="pf-filter" data-filter="bedroom">Bedroom (3)</button>
-            <button class="pf-filter" data-filter="office">Home Office (2)</button>
-            <button class="pf-filter" data-filter="dining">Dining Room (2)</button>
-            <button class="pf-filter" data-filter="3d">3D Visualization (1)</button>
+            <button class="pf-filter" data-filter="office">
+              Home Office (2)
+            </button>
+            <button class="pf-filter" data-filter="dining">
+              Dining Room (2)
+            </button>
+            <button class="pf-filter" data-filter="3d">
+              3D Visualization (1)
+            </button>
           </div>
-
           <p class="pf-showing" id="pf-showing">Showing 12 of 12</p>
-
-          <!-- Portfolio grid -->
           <div class="pf-grid" id="pf-grid">
-
-            <article class="pf-card" data-category="living" onclick="openPfModal(this)">
-              <div class="pf-card__img" style="background-image:url('images/portfolio-living1.jpeg')">
+            <article
+              class="pf-card"
+              data-category="living"
+              onclick="openPfModal(this)"
+            >
+              <div
+                class="pf-card__img"
+                style="
+                  background-image: url(&quot;images/portfolio-living1.jpeg&quot;);
+                "
+              >
                 <div class="pf-card__overlay">
                   <span class="pf-card__zoom">&#128269;</span>
                 </div>
@@ -950,10 +962,20 @@
                 <p class="pf-card__meta">Kimironko, Kigali · 2024</p>
               </div>
             </article>
-
-            <article class="pf-card" data-category="bedroom" onclick="openPfModal(this)">
-              <div class="pf-card__img" style="background-image:url('images/portfolio-bedroom1.jpeg')">
-                <div class="pf-card__overlay"><span class="pf-card__zoom">&#128269;</span></div>
+            <article
+              class="pf-card"
+              data-category="bedroom"
+              onclick="openPfModal(this)"
+            >
+              <div
+                class="pf-card__img"
+                style="
+                  background-image: url(&quot;images/portfolio-bedroom1.jpeg&quot;);
+                "
+              >
+                <div class="pf-card__overlay">
+                  <span class="pf-card__zoom">&#128269;</span>
+                </div>
                 <span class="pf-card__badge">Bedroom</span>
               </div>
               <div class="pf-card__body">
@@ -961,10 +983,20 @@
                 <p class="pf-card__meta">Remera, Kigali · 2024</p>
               </div>
             </article>
-
-            <article class="pf-card" data-category="3d" onclick="openPfModal(this)">
-              <div class="pf-card__img" style="background-image:url('images/portfolio-3d1.jpeg')">
-                <div class="pf-card__overlay"><span class="pf-card__zoom">&#128269;</span></div>
+            <article
+              class="pf-card"
+              data-category="3d"
+              onclick="openPfModal(this)"
+            >
+              <div
+                class="pf-card__img"
+                style="
+                  background-image: url(&quot;images/portfolio-3d1.jpeg&quot;);
+                "
+              >
+                <div class="pf-card__overlay">
+                  <span class="pf-card__zoom">&#128269;</span>
+                </div>
                 <span class="pf-card__badge">3D Visualization</span>
               </div>
               <div class="pf-card__body">
@@ -972,10 +1004,20 @@
                 <p class="pf-card__meta">Kimironko, Kigali · 2025</p>
               </div>
             </article>
-
-            <article class="pf-card" data-category="office" onclick="openPfModal(this)">
-              <div class="pf-card__img" style="background-image:url('images/portfolio-office1.jpeg')">
-                <div class="pf-card__overlay"><span class="pf-card__zoom">&#128269;</span></div>
+            <article
+              class="pf-card"
+              data-category="office"
+              onclick="openPfModal(this)"
+            >
+              <div
+                class="pf-card__img"
+                style="
+                  background-image: url(&quot;images/portfolio-office1.jpeg&quot;);
+                "
+              >
+                <div class="pf-card__overlay">
+                  <span class="pf-card__zoom">&#128269;</span>
+                </div>
                 <span class="pf-card__badge">Home Office</span>
               </div>
               <div class="pf-card__body">
@@ -983,10 +1025,20 @@
                 <p class="pf-card__meta">Gasabo, Kigali · 2025</p>
               </div>
             </article>
-
-            <article class="pf-card" data-category="living" onclick="openPfModal(this)">
-              <div class="pf-card__img" style="background-image:url('images/portfolio-living2.jpeg')">
-                <div class="pf-card__overlay"><span class="pf-card__zoom">&#128269;</span></div>
+            <article
+              class="pf-card"
+              data-category="living"
+              onclick="openPfModal(this)"
+            >
+              <div
+                class="pf-card__img"
+                style="
+                  background-image: url(&quot;images/portfolio-living2.jpeg&quot;);
+                "
+              >
+                <div class="pf-card__overlay">
+                  <span class="pf-card__zoom">&#128269;</span>
+                </div>
                 <span class="pf-card__badge">Living Room</span>
               </div>
               <div class="pf-card__body">
@@ -994,10 +1046,20 @@
                 <p class="pf-card__meta">Nyarugenge, Kigali · 2025</p>
               </div>
             </article>
-
-            <article class="pf-card" data-category="dining" onclick="openPfModal(this)">
-              <div class="pf-card__img" style="background-image:url('images/portfolio-dining1.jpeg')">
-                <div class="pf-card__overlay"><span class="pf-card__zoom">&#128269;</span></div>
+            <article
+              class="pf-card"
+              data-category="dining"
+              onclick="openPfModal(this)"
+            >
+              <div
+                class="pf-card__img"
+                style="
+                  background-image: url(&quot;images/portfolio-dining1.jpeg&quot;);
+                "
+              >
+                <div class="pf-card__overlay">
+                  <span class="pf-card__zoom">&#128269;</span>
+                </div>
                 <span class="pf-card__badge">Dining Room</span>
               </div>
               <div class="pf-card__body">
@@ -1005,10 +1067,20 @@
                 <p class="pf-card__meta">Kicukiro, Kigali · 2025</p>
               </div>
             </article>
-
-            <article class="pf-card" data-category="bedroom" onclick="openPfModal(this)">
-              <div class="pf-card__img" style="background-image:url('images/portfolio-bedroom2.jpeg')">
-                <div class="pf-card__overlay"><span class="pf-card__zoom">&#128269;</span></div>
+            <article
+              class="pf-card"
+              data-category="bedroom"
+              onclick="openPfModal(this)"
+            >
+              <div
+                class="pf-card__img"
+                style="
+                  background-image: url(&quot;images/portfolio-bedroom2.jpeg&quot;);
+                "
+              >
+                <div class="pf-card__overlay">
+                  <span class="pf-card__zoom">&#128269;</span>
+                </div>
                 <span class="pf-card__badge">Bedroom</span>
               </div>
               <div class="pf-card__body">
@@ -1016,10 +1088,20 @@
                 <p class="pf-card__meta">Remera, Kigali · 2025</p>
               </div>
             </article>
-
-            <article class="pf-card" data-category="living" onclick="openPfModal(this)">
-              <div class="pf-card__img" style="background-image:url('images/portfolio-living3.jpeg')">
-                <div class="pf-card__overlay"><span class="pf-card__zoom">&#128269;</span></div>
+            <article
+              class="pf-card"
+              data-category="living"
+              onclick="openPfModal(this)"
+            >
+              <div
+                class="pf-card__img"
+                style="
+                  background-image: url(&quot;images/portfolio-living3.jpeg&quot;);
+                "
+              >
+                <div class="pf-card__overlay">
+                  <span class="pf-card__zoom">&#128269;</span>
+                </div>
                 <span class="pf-card__badge">Living Room</span>
               </div>
               <div class="pf-card__body">
@@ -1027,10 +1109,20 @@
                 <p class="pf-card__meta">Kibagabaga, Kigali · 2025</p>
               </div>
             </article>
-
-            <article class="pf-card" data-category="office" onclick="openPfModal(this)">
-              <div class="pf-card__img" style="background-image:url('images/portfolio-office2.jpeg')">
-                <div class="pf-card__overlay"><span class="pf-card__zoom">&#128269;</span></div>
+            <article
+              class="pf-card"
+              data-category="office"
+              onclick="openPfModal(this)"
+            >
+              <div
+                class="pf-card__img"
+                style="
+                  background-image: url(&quot;images/portfolio-office2.jpeg&quot;);
+                "
+              >
+                <div class="pf-card__overlay">
+                  <span class="pf-card__zoom">&#128269;</span>
+                </div>
                 <span class="pf-card__badge">Home Office</span>
               </div>
               <div class="pf-card__body">
@@ -1038,10 +1130,20 @@
                 <p class="pf-card__meta">Gasabo, Kigali · 2025</p>
               </div>
             </article>
-
-            <article class="pf-card" data-category="dining" onclick="openPfModal(this)">
-              <div class="pf-card__img" style="background-image:url('images/portfolio-dining2.jpeg')">
-                <div class="pf-card__overlay"><span class="pf-card__zoom">&#128269;</span></div>
+            <article
+              class="pf-card"
+              data-category="dining"
+              onclick="openPfModal(this)"
+            >
+              <div
+                class="pf-card__img"
+                style="
+                  background-image: url(&quot;images/portfolio-dining2.jpeg&quot;);
+                "
+              >
+                <div class="pf-card__overlay">
+                  <span class="pf-card__zoom">&#128269;</span>
+                </div>
                 <span class="pf-card__badge">Dining Room</span>
               </div>
               <div class="pf-card__body">
@@ -1049,10 +1151,20 @@
                 <p class="pf-card__meta">Nyarugenge, Kigali · 2025</p>
               </div>
             </article>
-
-            <article class="pf-card" data-category="living" onclick="openPfModal(this)">
-              <div class="pf-card__img" style="background-image:url('images/portfolio-living4.jpeg')">
-                <div class="pf-card__overlay"><span class="pf-card__zoom">&#128269;</span></div>
+            <article
+              class="pf-card"
+              data-category="living"
+              onclick="openPfModal(this)"
+            >
+              <div
+                class="pf-card__img"
+                style="
+                  background-image: url(&quot;images/portfolio-living4.jpeg&quot;);
+                "
+              >
+                <div class="pf-card__overlay">
+                  <span class="pf-card__zoom">&#128269;</span>
+                </div>
                 <span class="pf-card__badge">Living Room</span>
               </div>
               <div class="pf-card__body">
@@ -1060,10 +1172,20 @@
                 <p class="pf-card__meta">Kicukiro, Kigali · 2025</p>
               </div>
             </article>
-
-            <article class="pf-card" data-category="bedroom" onclick="openPfModal(this)">
-              <div class="pf-card__img" style="background-image:url('images/portfolio-bedroom3.jpeg')">
-                <div class="pf-card__overlay"><span class="pf-card__zoom">&#128269;</span></div>
+            <article
+              class="pf-card"
+              data-category="bedroom"
+              onclick="openPfModal(this)"
+            >
+              <div
+                class="pf-card__img"
+                style="
+                  background-image: url(&quot;images/portfolio-bedroom3.jpeg&quot;);
+                "
+              >
+                <div class="pf-card__overlay">
+                  <span class="pf-card__zoom">&#128269;</span>
+                </div>
                 <span class="pf-card__badge">Bedroom</span>
               </div>
               <div class="pf-card__body">
@@ -1071,40 +1193,50 @@
                 <p class="pf-card__meta">Kimironko, Kigali · 2025</p>
               </div>
             </article>
-
-          </div><!-- /pf-grid -->
+          </div>
         </div>
       </section>
 
-      <!-- Portfolio image modal -->
-      <div class="pf-modal-overlay" id="pf-modal-overlay" onclick="closePfModal()">
+      <div
+        class="pf-modal-overlay"
+        id="pf-modal-overlay"
+        onclick="closePfModal()"
+      >
         <div class="pf-modal" onclick="event.stopPropagation()">
-          <button class="pf-modal__close" onclick="closePfModal()">&#10005;</button>
+          <button class="pf-modal__close" onclick="closePfModal()">
+            &#10005;
+          </button>
           <div class="pf-modal__img" id="pf-modal-img"></div>
           <div class="pf-modal__info">
             <span class="pf-modal__badge" id="pf-modal-badge"></span>
             <h2 class="pf-modal__title" id="pf-modal-title"></h2>
             <p class="pf-modal__meta" id="pf-modal-meta"></p>
-            <a href="https://wa.me/250700000000?text=Hello%20MOUN%2C%20I%27d%20like%20a%20similar%20design%20for%20my%20space!"
-               class="btn btn--primary" target="_blank" rel="noopener" style="margin-top:12px;display:inline-block;">
+            <a
+              href="https://wa.me/250700000000?text=Hello%20MOUN%2C%20I%27d%20like%20a%20similar%20design!"
+              class="btn btn--primary"
+              target="_blank"
+              rel="noopener"
+              style="margin-top: 12px; display: inline-block"
+            >
               Request similar design
             </a>
           </div>
         </div>
       </div>
 
-      <!-- CTA Strip — "Like what you see?" -->
       <section class="pf-cta">
         <div class="pf-cta__inner container">
           <h2 class="pf-cta__title">Like what you see?</h2>
           <p class="pf-cta__sub">Get in touch to discuss your next project.</p>
-          <a href="https://wa.me/250700000000?text=Hello%20MOUN%2C%20I%27d%20like%20to%20start%20a%20project!"
-             class="pf-cta__btn" target="_blank" rel="noopener">
-            START YOUR PROJECT
-          </a>
+          <a
+            href="https://wa.me/250700000000?text=Hello%20MOUN%2C%20I%27d%20like%20to%20start%20a%20project!"
+            class="pf-cta__btn"
+            target="_blank"
+            rel="noopener"
+            >Start Your Project</a
+          >
         </div>
       </section>
-
     </main>
 
     <!-- ============================================================
@@ -1154,43 +1286,184 @@
         </div>
       </section>
 
-      <section class="values section section--cream">
+      <!-- OUR PROCESS -->
+      <section class="process-section section">
         <div class="container">
-          <h2 class="section-title">What We Stand For</h2>
-          <div class="values__grid">
-            <div class="value-card">
-              <span class="value-card__icon">🏠</span>
-              <h3>Design for Everyone</h3>
-              <p>
-                Professional interior design should not be a luxury. We make it
-                accessible for young professionals and families in Kigali.
-              </p>
+          <div class="process-header">
+            <h2 class="process-title">Our Process</h2>
+            <div class="process-divider"></div>
+            <p class="process-sub">
+              A simple workflow designed to bring your vision to life — with
+              clarity and confidence at every step.
+            </p>
+          </div>
+          <div class="process-list">
+            <div class="process-step">
+              <div class="process-step__num">01</div>
+              <div class="process-step__content">
+                <h3 class="process-step__title">Consultation</h3>
+                <p class="process-step__desc">
+                  We start with a conversation — in person or on WhatsApp — to
+                  understand your space, your taste, and your budget. No
+                  pressure, no commitment required.
+                </p>
+              </div>
             </div>
-            <div class="value-card">
-              <span class="value-card__icon">🔍</span>
-              <h3>See Before You Spend</h3>
-              <p>
-                Our 3D visualization service eliminates guesswork. Preview your
-                exact space in full detail before committing to any purchase.
-              </p>
+
+            <div class="process-step">
+              <div class="process-step__num">02</div>
+              <div class="process-step__content">
+                <h3 class="process-step__title">Space Assessment</h3>
+                <p class="process-step__desc">
+                  You send us photos and measurements of your room. We review
+                  everything and put together a design brief that captures
+                  exactly what you are looking for.
+                </p>
+              </div>
             </div>
-            <div class="value-card">
-              <span class="value-card__icon">🌍</span>
-              <h3>Locally Relevant</h3>
-              <p>
-                Our aesthetic is inspired by African design traditions and the
-                warmth of Rwandan culture — not imported templates.
-              </p>
+
+            <div class="process-step">
+              <div class="process-step__num">03</div>
+              <div class="process-step__content">
+                <h3 class="process-step__title">3D Visualization</h3>
+                <p class="process-step__desc">
+                  Our team builds a photorealistic 3D render of your space using
+                  professional design tools. You see exactly how your room will
+                  look — before anything is purchased or changed.
+                </p>
+              </div>
             </div>
-            <div class="value-card">
-              <span class="value-card__icon">✨</span>
-              <h3>Curated Quality</h3>
-              <p>
-                Every product in our shop is handpicked for quality, durability,
-                and design. We stock only what we would put in our own homes.
-              </p>
+
+            <div class="process-step">
+              <div class="process-step__num">04</div>
+              <div class="process-step__content">
+                <h3 class="process-step__title">Review & Revisions</h3>
+                <p class="process-step__desc">
+                  You review the 3D design and request any changes — different
+                  colours, furniture layout, décor pieces. We refine until the
+                  design feels exactly right.
+                </p>
+              </div>
+            </div>
+
+            <div class="process-step">
+              <div class="process-step__num">05</div>
+              <div class="process-step__content">
+                <h3 class="process-step__title">Shop & Transform</h3>
+                <p class="process-step__desc">
+                  Once the design is approved, order the exact décor pieces from
+                  our shop. We deliver to your door across Kigali and your space
+                  transforms exactly as visualized.
+                </p>
+              </div>
             </div>
           </div>
+        </div>
+      </section>
+
+      <!-- CLIENT TESTIMONIALS -->
+      <section class="testimonials-section">
+        <div class="container">
+          <div class="process-header">
+            <h2 class="process-title">Client Testimonials</h2>
+            <div class="process-divider"></div>
+          </div>
+          <div class="testimonials-grid">
+            <div class="testi-card testi-card--featured">
+              <div class="testi-stars">★★★★★</div>
+              <span class="testi-quote-icon">"</span>
+              <p class="testi-text">
+                "MOUN completely transformed how I see my apartment. I sent
+                photos of my empty living room and within 48 hours I had a full
+                3D render showing exactly what it could look like. I ordered the
+                pieces and my space looks exactly like the design. Absolutely
+                worth every franc."
+              </p>
+              <div class="testi-author">
+                <strong>Amina U.</strong>
+                <span>Homeowner · Kimironko, Kigali</span>
+              </div>
+            </div>
+
+            <div class="testi-card">
+              <div class="testi-stars">★★★★★</div>
+              <span class="testi-quote-icon">"</span>
+              <p class="testi-text">
+                "I was redoing my bedroom and had no idea where to start. MOUN
+                gave me a 3D visualization that made the decision so easy. The
+                terracotta vase and linen cushions they recommended are
+                perfect."
+              </p>
+              <div class="testi-author">
+                <strong>Jean Paul N.</strong>
+                <span>Homeowner · Remera, Kigali</span>
+              </div>
+            </div>
+
+            <div class="testi-card">
+              <div class="testi-stars">★★★★★</div>
+              <span class="testi-quote-icon">"</span>
+              <p class="testi-text">
+                "The checkout process was simple — I uploaded my bank receipt
+                and my order was confirmed on WhatsApp within the hour. The
+                delivery was on time and the products are high quality. I will
+                be ordering again."
+              </p>
+              <div class="testi-author">
+                <strong>Claire M.</strong>
+                <span>Interior enthusiast · Gasabo, Kigali</span>
+              </div>
+            </div>
+
+            <div class="testi-card">
+              <div class="testi-stars">★★★★☆</div>
+              <span class="testi-quote-icon">"</span>
+              <p class="testi-text">
+                "Really impressed by the level of detail in the 3D render. MOUN
+                understood the African aesthetic I was going for — warm tones,
+                natural materials, nothing too Western. My home finally feels
+                like me."
+              </p>
+              <div class="testi-author">
+                <strong>Diane K.</strong>
+                <span>Homeowner · Nyarugenge, Kigali</span>
+              </div>
+            </div>
+
+            <div class="testi-card">
+              <div class="testi-stars">★★★★★</div>
+              <span class="testi-quote-icon">"</span>
+              <p class="testi-text">
+                "I set up a home office using MOUN's visualization service and
+                the woven basket and wooden tray set they recommended made the
+                space feel put together without breaking the bank. Great value."
+              </p>
+              <div class="testi-author">
+                <strong>Eric H.</strong>
+                <span>Entrepreneur · Kicukiro, Kigali</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- HAVE A PROJECT IN MIND? -->
+      <section class="project-cta">
+        <div class="project-cta__inner container">
+          <div class="project-cta__line"></div>
+          <h2 class="project-cta__title">Have a project in mind?</h2>
+          <p class="project-cta__sub">
+            Tell us about your space. We will put together a design and pricing
+            proposal within 24 hours.
+          </p>
+          <a
+            href="https://wa.me/250700000000?text=Hello%20MOUN%2C%20I%20have%20a%20project%20in%20mind!"
+            class="project-cta__btn"
+            target="_blank"
+            rel="noopener"
+          >
+            Start Your Project
+          </a>
         </div>
       </section>
     </main>
@@ -1256,14 +1529,18 @@
           <div class="contact-info">
             <h2>Contact Info</h2>
             <div class="contact-info__item">
-              <span class="contact-info__icon">📍</span>
+              <span class="contact-info__icon"
+                ><i class="fa-solid fa-location-dot"></i
+              ></span>
               <div>
                 <strong>Location</strong>
                 <p>Kigali, Rwanda</p>
               </div>
             </div>
             <div class="contact-info__item">
-              <span class="contact-info__icon">📧</span>
+              <span class="contact-info__icon"
+                ><i class="fa-regular fa-envelope"></i
+              ></span>
               <div>
                 <strong>Email</strong>
                 <p>
@@ -1272,7 +1549,9 @@
               </div>
             </div>
             <div class="contact-info__item">
-              <span class="contact-info__icon">🕐</span>
+              <span class="contact-info__icon"
+                ><i class="fa-regular fa-clock"></i
+              ></span>
               <div>
                 <strong>Hours</strong>
                 <p>Mon – Fri, 8am – 6pm CAT</p>

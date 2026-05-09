@@ -2400,210 +2400,228 @@ body.dark .admin-modal__field input {
   color: var(--clr-text);
 }
 /* ============================================================
-   PORTFOLIO PAGE — MOUN brand colours
+   OUR PROCESS — About page
 ============================================================ */
+.process-section { background: #fff; }
 
-.pf-hero {
-  background: #1E150A;
-  padding: 72px 0 56px;
-  text-align: center;
-}
-.pf-hero__title {
-  font-size: clamp(2rem, 5vw, 3.5rem);
+.process-header { text-align: center; margin-bottom: 52px; }
+.process-title {
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
   font-weight: 700;
-  color: #F5EFE6;
+  color: #1E150A;
   text-transform: uppercase;
-  letter-spacing: 2px;
-  margin-bottom: 16px;
+  letter-spacing: 1.5px;
+  margin-bottom: 14px;
 }
-.pf-hero__sub {
+.process-divider {
+  width: 48px;
+  height: 2px;
+  background: #8B6C4A;
+  margin: 0 auto 18px;
+}
+.process-sub {
   font-size: 1rem;
-  color: rgba(245,239,230,0.6);
-  max-width: 560px;
+  color: #7A6A52;
+  max-width: 520px;
   margin: 0 auto;
   line-height: 1.6;
 }
 
-.pf-grid-section { padding: 48px 0; background: #F5EDE0; }
+.process-list { display: flex; flex-direction: column; gap: 0; }
 
-.pf-filters {
+.process-step {
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  margin-bottom: 12px;
+  align-items: flex-start;
+  gap: 28px;
+  padding: 32px 0;
+  border-bottom: 1px solid #EDE0CC;
 }
-.pf-filter {
-  padding: 8px 20px;
-  border: 1.5px solid #8B6C4A;
-  background: transparent;
-  color: #8B6C4A;
-  font-size: 0.85rem;
-  font-weight: 500;
-  border-radius: 2px;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s;
-  white-space: nowrap;
+.process-step:last-child { border-bottom: none; }
+
+.process-step__num {
+  min-width: 56px;
+  height: 56px;
+  background: #1E150A;
+  color: #C9A97A;
+  font-size: 1rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  letter-spacing: 1px;
+  flex-shrink: 0;
 }
-.pf-filter:hover  { background: #8B6C4A; color: #F5EFE6; }
-.pf-filter.active { background: #8B6C4A; color: #F5EFE6; }
 
-.pf-showing { font-size: 0.82rem; color: #A08060; margin-bottom: 28px; }
+.process-step__title {
+  font-size: 1rem;
+  font-weight: 700;
+  color: #1E150A;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 8px;
+}
+.process-step__desc {
+  font-size: 0.92rem;
+  color: #7A6A52;
+  line-height: 1.65;
+  max-width: 680px;
+}
 
-.pf-grid {
+/* ============================================================
+   CLIENT TESTIMONIALS — About page
+============================================================ */
+.testimonials-section {
+  background: #F5EDE0;
+  padding: 72px 0;
+}
+
+.testimonials-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
-@media (max-width: 900px) { .pf-grid { grid-template-columns: repeat(2,1fr); } }
-@media (max-width: 560px) { .pf-grid { grid-template-columns: 1fr; } }
+@media (max-width: 900px) { .testimonials-grid { grid-template-columns: repeat(2,1fr); } }
+@media (max-width: 560px) { .testimonials-grid { grid-template-columns: 1fr; } }
 
-.pf-card {
-  cursor: pointer;
-  border-radius: 6px;
-  overflow: hidden;
+.testi-card {
   background: #fff;
-  box-shadow: 0 2px 8px rgba(139,108,74,0.12);
-  transition: transform 0.2s, box-shadow 0.2s;
+  border-top: 3px solid #E0D4C0;
+  border-radius: 2px;
+  padding: 28px 24px;
+  position: relative;
+  transition: border-color 0.2s, box-shadow 0.2s;
 }
-.pf-card:hover {
-  transform: translateY(-4px);
-  box-shadow: 0 8px 24px rgba(139,108,74,0.22);
+.testi-card:hover {
+  border-color: #8B6C4A;
+  box-shadow: 0 4px 16px rgba(139,108,74,0.12);
+}
+.testi-card--featured {
+  border-color: #8B6C4A;
+  box-shadow: 0 4px 20px rgba(139,108,74,0.16);
+  grid-column: span 1;
 }
 
-.pf-card__img {
-  position: relative;
-  height: 220px;
-  background-size: cover;
-  background-position: center;
-  background-color: #C9A97A;
-  overflow: hidden;
+.testi-stars {
+  font-size: 1rem;
+  color: #C9A97A;
+  margin-bottom: 12px;
+  letter-spacing: 2px;
 }
-.pf-card__overlay {
+.testi-quote-icon {
   position: absolute;
-  inset: 0;
-  background: rgba(30,21,10,0);
+  top: 20px;
+  right: 20px;
+  font-size: 3rem;
+  color: #EDE0CC;
+  font-family: Georgia, serif;
+  line-height: 1;
+}
+.testi-text {
+  font-size: 0.9rem;
+  color: #3A2A1A;
+  line-height: 1.7;
+  margin-bottom: 20px;
+  font-style: italic;
+}
+.testi-author {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: background 0.25s;
+  flex-direction: column;
+  gap: 2px;
 }
-.pf-card:hover .pf-card__overlay { background: rgba(30,21,10,0.5); }
-.pf-card__zoom {
-  font-size: 2rem;
-  color: #C9A97A;
-  opacity: 0;
-  transform: scale(0.7);
-  transition: opacity 0.25s, transform 0.25s;
+.testi-author strong {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: #1E150A;
 }
-.pf-card:hover .pf-card__zoom { opacity: 1; transform: scale(1); }
-
-.pf-card__badge {
-  position: absolute;
-  bottom: 10px;
-  left: 10px;
-  background: #8B6C4A;
-  color: #F5EFE6;
-  font-size: 0.7rem;
-  font-weight: 600;
-  padding: 3px 10px;
-  border-radius: 2px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+.testi-author span {
+  font-size: 0.78rem;
+  color: #A08060;
 }
 
-.pf-card__body  { padding: 14px 16px; background: #fff; }
-.pf-card__title { font-size: 0.95rem; font-weight: 600; color: #1E150A; margin-bottom: 4px; }
-.pf-card__meta  { font-size: 0.8rem; color: #A08060; }
-.pf-card.hidden { display: none; }
-
-/* Modal */
-.pf-modal-overlay {
-  display: none;
-  position: fixed;
-  inset: 0;
-  background: rgba(30,21,10,0.88);
-  z-index: 9999;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-}
-.pf-modal-overlay.open { display: flex; }
-.pf-modal {
-  background: #F5EDE0;
-  border-radius: 8px;
-  overflow: hidden;
-  max-width: 800px;
-  width: 100%;
-  position: relative;
-  max-height: 90vh;
-  overflow-y: auto;
-}
-.pf-modal__close {
-  position: absolute;
-  top: 12px; right: 14px;
-  background: rgba(30,21,10,0.6);
-  color: #C9A97A;
-  border: none;
-  width: 32px; height: 32px;
-  border-radius: 50%;
-  font-size: 14px;
-  cursor: pointer;
-  z-index: 2;
-  display: flex; align-items: center; justify-content: center;
-}
-.pf-modal__img {
-  width: 100%;
-  height: 400px;
-  background-size: cover;
-  background-position: center;
-  background-color: #C9A97A;
-}
-.pf-modal__info { padding: 20px 24px; }
-.pf-modal__badge {
-  display: inline-block;
-  background: #8B6C4A;
-  color: #F5EFE6;
-  font-size: 0.72rem;
-  font-weight: 600;
-  padding: 3px 10px;
-  border-radius: 2px;
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
-  margin-bottom: 10px;
-}
-.pf-modal__title { font-size: 1.2rem; font-weight: 700; color: #1E150A; margin-bottom: 4px; }
-.pf-modal__meta  { font-size: 0.85rem; color: #A08060; }
-
-/* CTA strip */
-.pf-cta {
+/* ============================================================
+   HAVE A PROJECT IN MIND? — CTA
+============================================================ */
+.project-cta {
   background: #1E150A;
-  padding: 80px 20px;
+  padding: 96px 20px;
   text-align: center;
 }
-.pf-cta__title {
+.project-cta__line {
+  width: 48px;
+  height: 2px;
+  background: #8B6C4A;
+  margin: 0 auto 28px;
+}
+.project-cta__title {
   font-size: clamp(1.8rem, 4vw, 3rem);
   font-weight: 700;
   color: #F5EFE6;
   text-transform: uppercase;
-  letter-spacing: 1px;
-  margin-bottom: 12px;
+  letter-spacing: 2px;
+  margin-bottom: 14px;
 }
-.pf-cta__sub {
+.project-cta__sub {
   font-size: 1rem;
-  color: rgba(245,239,230,0.6);
-  margin-bottom: 32px;
+  color: rgba(245,239,230,0.55);
+  max-width: 500px;
+  margin: 0 auto 36px;
+  line-height: 1.6;
 }
-.pf-cta__btn {
+.project-cta__btn {
   display: inline-block;
-  padding: 16px 40px;
-  background: transparent;
-  color: #C9A97A;
-  border: 2px solid #C9A97A;
-  font-size: 0.9rem;
+  padding: 18px 48px;
+  background: #F5EFE6;
+  color: #1E150A;
+  font-size: 0.88rem;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   text-transform: uppercase;
   text-decoration: none;
+  border: 2px solid #F5EFE6;
   transition: background 0.2s, color 0.2s;
 }
-.pf-cta__btn:hover { background: #C9A97A; color: #1E150A; }
+.project-cta__btn:hover {
+  background: transparent;
+  color: #F5EFE6;
+}
+
+/* ============================================================
+   PORTFOLIO PAGE — MOUN brand colours
+============================================================ */
+.pf-hero { background: #1E150A; padding: 72px 0 56px; text-align: center; }
+.pf-hero__title { font-size: clamp(2rem,5vw,3.5rem); font-weight:700; color:#F5EFE6; text-transform:uppercase; letter-spacing:2px; margin-bottom:16px; }
+.pf-hero__sub { font-size:1rem; color:rgba(245,239,230,0.6); max-width:560px; margin:0 auto; line-height:1.6; }
+.pf-grid-section { padding:48px 0; background:#F5EDE0; }
+.pf-filters { display:flex; gap:10px; flex-wrap:wrap; margin-bottom:12px; }
+.pf-filter { padding:8px 20px; border:1.5px solid #8B6C4A; background:transparent; color:#8B6C4A; font-size:0.85rem; font-weight:500; border-radius:2px; cursor:pointer; transition:background 0.2s,color 0.2s; white-space:nowrap; }
+.pf-filter:hover,.pf-filter.active { background:#8B6C4A; color:#F5EFE6; }
+.pf-showing { font-size:0.82rem; color:#A08060; margin-bottom:28px; }
+.pf-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+@media(max-width:900px){.pf-grid{grid-template-columns:repeat(2,1fr);}}
+@media(max-width:560px){.pf-grid{grid-template-columns:1fr;}}
+.pf-card { cursor:pointer; border-radius:6px; overflow:hidden; background:#fff; box-shadow:0 2px 8px rgba(139,108,74,0.12); transition:transform 0.2s,box-shadow 0.2s; }
+.pf-card:hover { transform:translateY(-4px); box-shadow:0 8px 24px rgba(139,108,74,0.22); }
+.pf-card__img { position:relative; height:220px; background-size:cover; background-position:center; background-color:#C9A97A; overflow:hidden; }
+.pf-card__overlay { position:absolute; inset:0; background:rgba(30,21,10,0); display:flex; align-items:center; justify-content:center; transition:background 0.25s; }
+.pf-card:hover .pf-card__overlay { background:rgba(30,21,10,0.5); }
+.pf-card__zoom { font-size:2rem; color:#C9A97A; opacity:0; transform:scale(0.7); transition:opacity 0.25s,transform 0.25s; }
+.pf-card:hover .pf-card__zoom { opacity:1; transform:scale(1); }
+.pf-card__badge { position:absolute; bottom:10px; left:10px; background:#8B6C4A; color:#F5EFE6; font-size:0.7rem; font-weight:600; padding:3px 10px; border-radius:2px; text-transform:uppercase; letter-spacing:0.5px; }
+.pf-card__body { padding:14px 16px; background:#fff; }
+.pf-card__title { font-size:0.95rem; font-weight:600; color:#1E150A; margin-bottom:4px; }
+.pf-card__meta { font-size:0.8rem; color:#A08060; }
+.pf-card.hidden { display:none; }
+.pf-modal-overlay { display:none; position:fixed; inset:0; background:rgba(30,21,10,0.88); z-index:9999; align-items:center; justify-content:center; padding:20px; }
+.pf-modal-overlay.open { display:flex; }
+.pf-modal { background:#F5EDE0; border-radius:8px; overflow:hidden; max-width:800px; width:100%; position:relative; max-height:90vh; overflow-y:auto; }
+.pf-modal__close { position:absolute; top:12px; right:14px; background:rgba(30,21,10,0.6); color:#C9A97A; border:none; width:32px; height:32px; border-radius:50%; font-size:14px; cursor:pointer; z-index:2; display:flex; align-items:center; justify-content:center; }
+.pf-modal__img { width:100%; height:400px; background-size:cover; background-position:center; background-color:#C9A97A; }
+.pf-modal__info { padding:20px 24px; }
+.pf-modal__badge { display:inline-block; background:#8B6C4A; color:#F5EFE6; font-size:0.72rem; font-weight:600; padding:3px 10px; border-radius:2px; text-transform:uppercase; letter-spacing:0.5px; margin-bottom:10px; }
+.pf-modal__title { font-size:1.2rem; font-weight:700; color:#1E150A; margin-bottom:4px; }
+.pf-modal__meta { font-size:0.85rem; color:#A08060; }
+.pf-cta { background:#1E150A; padding:80px 20px; text-align:center; }
+.pf-cta__title { font-size:clamp(1.8rem,4vw,3rem); font-weight:700; color:#F5EFE6; text-transform:uppercase; letter-spacing:1px; margin-bottom:12px; }
+.pf-cta__sub { font-size:1rem; color:rgba(245,239,230,0.6); margin-bottom:32px; }
+.pf-cta__btn { display:inline-block; padding:16px 40px; background:transparent; color:#C9A97A; border:2px solid #C9A97A; font-size:0.9rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; text-decoration:none; transition:background 0.2s,color 0.2s; }
+.pf-cta__btn:hover { background:#C9A97A; color:#1E150A; }
