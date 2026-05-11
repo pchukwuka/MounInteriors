@@ -1,6 +1,6 @@
 /* ================================================================
-   ASO LUXE — styles.css
-   Author: Aso Luxe Design System
+   MOUN INTERIORS — styles.css
+   Author: MounInteriors Design System
    Fonts: Playfair Display (display) · DM Sans (body)
    ================================================================ */
 
@@ -2625,3 +2625,405 @@ body.dark .admin-modal__field input {
 .pf-cta__sub { font-size:1rem; color:rgba(245,239,230,0.6); margin-bottom:32px; }
 .pf-cta__btn { display:inline-block; padding:16px 40px; background:transparent; color:#C9A97A; border:2px solid #C9A97A; font-size:0.9rem; font-weight:700; letter-spacing:1.5px; text-transform:uppercase; text-decoration:none; transition:background 0.2s,color 0.2s; }
 .pf-cta__btn:hover { background:#C9A97A; color:#1E150A; }
+
+/* ============================================================
+   CINEMATIC INTRO SCREEN
+============================================================ */
+
+.intro-screen {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  background: #0A0806;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 1.4s ease;
+}
+
+.intro-screen.fade-out {
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* Video fills the full screen */
+.intro-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: brightness(0.75) saturate(0.9);
+}
+
+/* Warm terracotta overlay — makes cold video feel MOUN-branded */
+.intro-warm-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(139, 80, 40, 0.22);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+
+/* Dark vignette around edges */
+.intro-vignette {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(
+    ellipse at center,
+    transparent 40%,
+    rgba(10, 8, 6, 0.75) 100%
+  );
+  pointer-events: none;
+}
+
+/* Logo + tagline centered */
+.intro-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  opacity: 0;
+  transform: translateY(16px);
+  transition: opacity 1.4s ease 0.6s, transform 1.4s ease 0.6s;
+}
+
+.intro-content.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.intro-logo {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(3rem, 8vw, 6rem);
+  font-weight: 400;
+  color: #F5EFE6;
+  letter-spacing: -1px;
+  line-height: 1;
+  margin-bottom: 12px;
+}
+
+.intro-logo span {
+  color: #C9A97A;
+}
+
+.intro-tagline {
+  font-family: 'DM Sans', sans-serif;
+  font-size: clamp(0.65rem, 1.5vw, 0.85rem);
+  color: rgba(201, 169, 122, 0.85);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 20px;
+  opacity: 0;
+  transition: opacity 1s ease 1.2s;
+}
+
+.intro-tagline.visible {
+  opacity: 1;
+}
+
+/* Animated progress bar */
+.intro-bar {
+  width: 0;
+  height: 1px;
+  background: #C9A97A;
+  transition: width 3.5s ease 0.8s;
+}
+
+.intro-bar.animate {
+  width: 140px;
+}
+
+/* Skip button */
+.intro-skip {
+  position: absolute;
+  bottom: 24px;
+  right: 28px;
+  z-index: 3;
+  background: transparent;
+  border: 1px solid rgba(201, 169, 122, 0.3);
+  color: rgba(201, 169, 122, 0.7);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 6px 14px;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: color 0.2s, border-color 0.2s;
+}
+
+.intro-skip:hover {
+  color: #C9A97A;
+  border-color: rgba(201, 169, 122, 0.6);
+}
+
+/* Hide body scroll while intro plays */
+body.intro-active {
+  overflow: hidden;
+}
+
+/* ============================================================
+   RR LANDING SCREEN
+============================================================ */
+.rr-landing {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  transition: opacity 1.2s ease, transform 1.2s ease;
+}
+.rr-landing.exit {
+  opacity: 0;
+  transform: scale(1.05);
+  pointer-events: none;
+}
+.rr-landing__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.72) saturate(0.85);
+  z-index: 0;
+}
+.rr-landing__warm {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(100,55,20,0.22);
+  mix-blend-mode: multiply;
+  pointer-events: none;
+}
+.rr-landing__dark {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: rgba(10,8,6,0.42);
+  pointer-events: none;
+}
+.rr-landing__vignette {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background: radial-gradient(ellipse at center, transparent 38%, rgba(10,8,6,0.72) 100%);
+  pointer-events: none;
+}
+
+/* MENU button — top left */
+.rr-menu-btn {
+  position: absolute;
+  top: 28px;
+  left: 36px;
+  z-index: 10;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0;
+}
+.rr-hamburger {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+.rr-hamburger span {
+  display: block;
+  width: 22px;
+  height: 1.5px;
+  background: #F5EFE6;
+  transition: background 0.2s;
+}
+.rr-menu-btn:hover .rr-hamburger span { background: #C9A97A; }
+.rr-menu-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #F5EFE6;
+  transition: color 0.2s;
+}
+.rr-menu-btn:hover .rr-menu-label { color: #C9A97A; }
+
+/* Center content */
+.rr-landing__content {
+  position: relative;
+  z-index: 5;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 0 20px;
+}
+.rr-landing__eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  color: rgba(201,169,122,0.85);
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 18px;
+  opacity: 0;
+  animation: rr-up 1.2s ease 0.3s forwards;
+}
+.rr-landing__logo {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(4rem, 10vw, 8rem);
+  font-weight: 400;
+  color: #F5EFE6;
+  letter-spacing: -2px;
+  line-height: 1;
+  margin-bottom: 22px;
+  opacity: 0;
+  animation: rr-up 1.2s ease 0.5s forwards;
+}
+.rr-landing__logo span { color: #C9A97A; }
+.rr-landing__bar {
+  width: 0;
+  height: 1px;
+  background: #C9A97A;
+  margin-bottom: 36px;
+  animation: rr-bar 1.8s ease 0.8s forwards;
+}
+.rr-landing__discover {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 500;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #1E150A;
+  background: #F5EFE6;
+  border: none;
+  padding: 15px 44px;
+  border-radius: 40px;
+  cursor: pointer;
+  opacity: 0;
+  animation: rr-up 1.2s ease 1s forwards;
+  transition: background 0.3s, color 0.3s, transform 0.2s;
+}
+.rr-landing__discover:hover {
+  background: #C9A97A;
+  color: #1E150A;
+  transform: translateY(-2px);
+}
+
+/* ============================================================
+   RR MENU OVERLAY — sits inside .rr-landing so video shows through
+============================================================ */
+.rr-menu-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 8;
+  display: grid;
+  grid-template-columns: 42% 58%;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+}
+.rr-menu-overlay.open {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Left blurred panel */
+.rr-menu__panel {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0 56px;
+  /* Frosted glass blur over the video */
+  background: rgba(10, 8, 6, 0.45);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* Close button */
+.rr-menu__close {
+  position: absolute;
+  top: 28px;
+  left: 36px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: rgba(245,239,230,0.65);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.7rem;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  transition: color 0.2s;
+  padding: 0;
+}
+.rr-menu__close:hover { color: #C9A97A; }
+
+/* Nav links */
+.rr-menu__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.rr-menu__link {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+  font-weight: 400;
+  color: rgba(245,239,230,0.45);
+  text-decoration: none;
+  letter-spacing: 1px;
+  padding: 12px 0;
+  border-bottom: 1px solid rgba(201,169,122,0.12);
+  transition: color 0.25s ease, padding-left 0.25s ease;
+  display: block;
+}
+.rr-menu__link:first-child {
+  border-top: 1px solid rgba(201,169,122,0.12);
+}
+.rr-menu__link:hover {
+  color: #F5EFE6;
+  padding-left: 14px;
+}
+
+/* Right side — fully transparent so video shows through */
+.rr-menu__right-clear {
+  background: transparent;
+}
+
+/* Main site wrapper */
+.rr-site {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.9s ease;
+}
+.rr-site.visible {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* Keyframes */
+@keyframes rr-up {
+  from { opacity:0; transform:translateY(18px); }
+  to   { opacity:1; transform:translateY(0); }
+}
+@keyframes rr-bar {
+  from { width: 0; }
+  to   { width: 100px; }
+}
+
+/* Mobile */
+@media (max-width: 640px) {
+  .rr-menu-overlay { grid-template-columns: 1fr; }
+  .rr-menu__right-clear { display: none; }
+  .rr-menu__panel { padding: 0 32px; }
+  .rr-menu__link { font-size: 1.5rem; }
+}

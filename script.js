@@ -1481,3 +1481,100 @@ function closePfModal() {
   document.body.style.overflow = '';
 }
 document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closePfModal(); });
+
+/* ============================================================
+   CINEMATIC INTRO — video plays then fades to homepage
+============================================================ */
+
+(function () {
+  const screen   = document.getElementById('intro-screen');
+  const video    = document.getElementById('intro-video');
+  const content  = document.getElementById('intro-content');
+  const tagline  = document.getElementById('intro-tagline');
+  const bar      = document.getElementById('intro-bar');
+  const skipBtn  = document.getElementById('intro-skip');
+
+  if (!screen) return;
+
+  // Prevent background scroll while intro plays
+  document.body.classList.add('intro-active');
+
+  function dismissIntro() {
+    screen.classList.add('fade-out');
+    document.body.classList.remove('intro-active');
+    setTimeout(() => {
+      screen.style.display = 'none';
+    }, 1500);
+  }
+
+  // Animate logo in after 0.4s
+  setTimeout(() => {
+    content.classList.add('visible');
+    tagline.classList.add('visible');
+    bar.classList.add('animate');
+  }, 400);
+
+  // Auto dismiss after 5.5 seconds or when video ends
+  const autoDismiss = setTimeout(dismissIntro, 5500);
+
+  video.addEventListener('ended', () => {
+    clearTimeout(autoDismiss);
+    dismissIntro();
+  });
+
+  // Skip button
+  skipBtn.addEventListener('click', () => {
+    clearTimeout(autoDismiss);
+    dismissIntro();
+  });
+
+  // Fallback — if video fails to load, dismiss after 4s
+  video.addEventListener('error', () => {
+    clearTimeout(autoDismiss);
+    setTimeout(dismissIntro, 4000);
+  });
+
+})();
+
+/* ============================================================
+   RR LANDING + MENU SYSTEM
+============================================================ */
+
+// Prevent scroll while on landing
+document.body.style.overflow = 'hidden';
+
+// Open fullscreen menu overlay (video keeps playing underneath)
+function openRRMenu() {
+  document.getElementById('rr-menu-overlay').classList.add('open');
+  // Hide centered content while menu is open
+  const content = document.getElementById('rr-landing-content');
+  if (content) content.style.opacity = '0';
+  // Hide menu button while menu is open
+  const menuBtn = document.getElementById('rr-menu-btn');
+  if (menuBtn) menuBtn.style.opacity = '0';
+}
+
+// Close menu overlay — show landing content again
+function closeRRMenu() {
+  document.getElementById('rr-menu-overlay').classList.remove('open');
+  const content = document.getElementById('rr-landing-content');
+  if (content) content.style.opacity = '1';
+  const menuBtn = document.getElementById('rr-menu-btn');
+  if (menuBtn) menuBtn.style.opacity = '1';
+}
+
+// Enter site — Discover button
+function enterSite() {
+  const landing = document.getElementById('rr-landing');
+  const site    = document.getElementById('rr-site');
+  if (!landing || !site) return;
+  landing.classList.add('exit');
+  site.classList.add('visible');
+  document.body.style.overflow = '';
+  setTimeout(() => { landing.style.display = 'none'; }, 1400);
+}
+
+// Escape key closes menu
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape') closeRRMenu();
+});
