@@ -273,18 +273,17 @@ def create_order():
     receipt_file = request.files.get('receipt')
 
     if receipt_file and receipt_file.filename:
-        try:
-            import uuid
-            from werkzeug.utils import secure_filename
-            receipts_dir = os.path.join(os.path.dirname(__file__), 'receipts')
-            os.makedirs(receipts_dir, exist_ok=True)
-            ext         = receipt_file.filename.rsplit('.', 1)[-1].lower() if '.' in receipt_file.filename else 'jpg'
-            unique_name = f"{uuid.uuid4().hex}.{ext}"
-            save_path   = os.path.join(receipts_dir, unique_name)
-            receipt_file.save(save_path)
-            receipt_url = f"/receipts/{unique_name}"
-        except Exception as e:
-            app.logger.error(f"Receipt save failed: {e}")
+        # Use Firebase Storage if credentials are available, otherwise skip receipt storage.
+        # Local disk is NOT used — Cloud Run containers are ephemeral.
+        firebase_creds = os.environ.get('FIREBASE_CREDENTIALS')
+        if firebase_creds:
+            try:
+                receipt_url = upload_receipt(receipt_file, receipt_file.filename)
+            except Exception as e:
+                app.logger.error(f"Firebase receipt upload failed: {e}")
+                # Non-fatal: order is still saved, receipt just won't be stored
+        else:
+            app.logger.warning("FIREBASE_CREDENTIALS not set — receipt not stored.")
 
     conn = get_connection()
     cur  = conn.cursor()
@@ -439,29 +438,15 @@ def update_order(order_id):
     return jsonify({'success': True, 'order_id': order_id}), 200
 
 
-# ── Serve receipts ────────────────────────────────────────────
 
-@app.route('/receipts/<filename>')
-def serve_receipt(filename):
-    from flask import send_from_directory
-    receipts_dir = os.path.join(os.path.dirname(__file__), 'receipts')
-    return send_from_directory(receipts_dir, filename)
-
-
-# ── Serve frontend ────────────────────────────────────────────
+# ── Root redirect ──────────────────────────────────────────────
+# The frontend is served separately (Vercel / Netlify / GitHub Pages).
+# Visiting the backend root redirects to the admin dashboard.
 
 @app.route('/')
 def serve_index():
-    from flask import send_from_directory
-    return send_from_directory(os.path.join(os.path.dirname(__file__), '..'), 'index.html')
-
-
-@app.route('/<path:filename>')
-def serve_static(filename):
-    from flask import send_from_directory
-    if filename.startswith(('api/', 'admin', 'health', 'receipts/')):
-        abort(404)
-    return send_from_directory(os.path.join(os.path.dirname(__file__), '..'), filename)
+    from flask import redirect
+    return redirect('/admin')
 
 
 # ── GET /admin ───────────────────────────────────────────────

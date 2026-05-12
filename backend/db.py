@@ -16,12 +16,27 @@ def get_connection():
     )
 
 
-def init_db():
+def init_db(retries: int = 5, delay: int = 3):
     """
     Create the orders and order_items tables if they don't exist.
     Called once when the Flask app starts.
+    Retries up to `retries` times with `delay` seconds between attempts
+    to handle transient connection failures at container cold-start.
     """
-    conn = get_connection()
+    import time
+    last_error = None
+    for attempt in range(1, retries + 1):
+        try:
+            conn = get_connection()
+            break
+        except Exception as e:
+            last_error = e
+            print(f"DB connection attempt {attempt}/{retries} failed: {e}")
+            if attempt < retries:
+                time.sleep(delay)
+    else:
+        raise RuntimeError(f"Could not connect to database after {retries} attempts: {last_error}")
+
     cur  = conn.cursor()
 
     cur.execute("""

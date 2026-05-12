@@ -1253,7 +1253,7 @@ document.getElementById('co-receipt-input')?.addEventListener('change', (e) => {
    Example: 'https://moun-backend-abc123-ew.a.run.app'
    During local testing use: 'http://localhost:8080'
    ================================================================ */
-const API_BASE = 'http://127.0.0.1:8080';
+const API_BASE = 'https://moun-backend-623237547353.europe-west1.run.app';
 
 document.getElementById('co-confirm-btn')?.addEventListener('click', async () => {
   if (!coReceiptFile) return;
