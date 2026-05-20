@@ -3027,3 +3027,113 @@ body.intro-active {
   .rr-menu__panel { padding: 0 32px; }
   .rr-menu__link { font-size: 1.5rem; }
 }
+
+/* ============================================================
+   QUOTATION DRAWER
+============================================================ */
+.quote-drawer__body {
+  padding: 1.5rem 1.25rem;
+  overflow-y: auto;
+}
+
+.quote-drawer__intro {
+  font-size: 0.88rem;
+  color: var(--clr-text-muted);
+  margin-bottom: 1.5rem;
+  line-height: 1.6;
+  border-left: 3px solid var(--clr-accent);
+  padding-left: 0.75rem;
+}
+
+.quote-form-wrap .form-group {
+  margin-bottom: 1rem;
+}
+
+.quote-form-wrap .form-group label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-bottom: 0.35rem;
+  color: var(--clr-text);
+}
+
+.field-required {
+  color: var(--clr-accent);
+}
+
+.quote-form-wrap input,
+.quote-form-wrap select,
+.quote-form-wrap textarea {
+  width: 100%;
+  padding: 0.65rem 0.85rem;
+  border: 1.5px solid var(--clr-border);
+  border-radius: 8px;
+  background: var(--clr-surface);
+  color: var(--clr-text);
+  font-size: 0.88rem;
+  font-family: inherit;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.quote-form-wrap input:focus,
+.quote-form-wrap select:focus,
+.quote-form-wrap textarea:focus {
+  border-color: var(--clr-accent);
+}
+
+.quote-form-wrap textarea {
+  resize: vertical;
+  min-height: 90px;
+}
+
+.quote-form__error {
+  background: #fdecea;
+  color: #b71c1c;
+  border-radius: 8px;
+  padding: 0.6rem 0.85rem;
+  font-size: 0.82rem;
+  margin-bottom: 0.85rem;
+}
+
+.quote-form__error[hidden] { display: none; }
+
+.quote-success {
+  text-align: center;
+  padding: 2rem 1rem;
+}
+
+.quote-success[hidden] { display: none; }
+
+.quote-success__icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  background: #d4edda;
+  color: #155724;
+  font-size: 1.8rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto 1.25rem;
+}
+
+.quote-success h3 {
+  font-family: var(--ff-serif);
+  font-size: 1.3rem;
+  margin-bottom: 0.5rem;
+  color: var(--clr-text);
+}
+
+.quote-success p {
+  font-size: 0.88rem;
+  color: var(--clr-text-muted);
+  line-height: 1.6;
+}
+
+#quote-submit-btn.loading {
+  opacity: 0.7;
+  pointer-events: none;
+}
