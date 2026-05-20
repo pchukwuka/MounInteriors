@@ -819,30 +819,16 @@ darkToggleBtn?.addEventListener('click', () => {
 })();
 
 /* ----------------------------------------------------------------
-   11. CART SYSTEM
+   11. QUOTATION DRAWER SYSTEM
    ---------------------------------------------------------------- */
-function loadCart() {
-  try {
-    return JSON.parse(localStorage.getItem('moun-cart')) || [];
-  } catch (e) {
-    return [];
-  }
-}
 
-function saveCart(cartArr) {
-  localStorage.setItem('moun-cart', JSON.stringify(cartArr));
-}
-
-let cart = loadCart();
-
-const cartDrawer = document.getElementById('cart-drawer');
+const cartDrawer  = document.getElementById('cart-drawer');
 const cartOverlay = document.getElementById('cart-overlay');
 
 function openCart() {
   cartDrawer?.classList.add('open');
   cartOverlay?.classList.add('open');
   document.body.style.overflow = 'hidden';
-  renderCartDrawer();
 }
 
 function closeCart() {
@@ -860,162 +846,102 @@ document.addEventListener('keydown', (e) => {
   if (e.key === 'Escape') closeCart();
 });
 
-function addToCart() {
-  if (!currentProduct) return;
+/* "Add to Cart" button on product page now opens the quotation drawer */
+document.getElementById('add-to-cart-btn')?.addEventListener('click', () => {
+  openCart();
+});
 
-  const name = currentProduct.name;
-  const price = currentProduct.price;
-  const image = document.getElementById('product-main-img')?.src || currentProduct.image;
-
-  const printPart = selectedPrint ? 'Print: ' + selectedPrint.name : '';
-  const sizePart = selectedSize ? 'Size: ' + selectedSize : '';
-  const colourPart = selectedColour ? 'Colour: ' + selectedColour : '';
-  const optionParts = [printPart, sizePart, colourPart].filter(Boolean);
-  const optionsStr = optionParts.length ? optionParts.join(', ') : 'One Size';
-
-  const key = name + '__' + optionsStr;
-  const existing = cart.find((item) => item.key === key);
-
-  if (existing) {
-    existing.qty = Math.min(existing.qty + currentQty, getMaxQty());
-  } else {
-    cart.push({
-      key,
-      name,
-      price,
-      image,
-      options: optionsStr,
-      qty: currentQty,
-      maxQty: getMaxQty(),  /* store per-item max for use in cart drawer */
-    });
-  }
-
-  saveCart(cart);
-  updateCartBadge();
-
-  const addBtn = document.getElementById('add-to-cart-btn');
-  if (addBtn) {
-    addBtn.textContent = '✓ Added to Cart';
-    addBtn.classList.add('btn--added');
-    setTimeout(() => {
-      addBtn.textContent = 'Add to Cart';
-      addBtn.classList.remove('btn--added');
-    }, 1500);
-  }
-
-  setTimeout(openCart, 400);
+function resetQuoteForm() {
+  ['q-name','q-email','q-phone','q-rooms','q-details'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.value = '';
+  });
+  ['q-service','q-budget','q-timeline'].forEach(id => {
+    const el = document.getElementById(id);
+    if (el) el.selectedIndex = 0;
+  });
+  const errEl = document.getElementById('quote-form-error');
+  if (errEl) { errEl.textContent = ''; errEl.hidden = true; }
+  const wrap = document.getElementById('quote-form-wrap');
+  const success = document.getElementById('quote-success');
+  if (wrap) wrap.style.display = '';
+  if (success) success.hidden = true;
 }
 
-document.getElementById('add-to-cart-btn')?.addEventListener('click', addToCart);
+window.resetQuoteForm = resetQuoteForm;
 
-function updateCartBadge() {
-  const badge = document.getElementById('cart-badge');
-  if (!badge) return;
+async function submitQuotation() {
+  const name     = document.getElementById('q-name')?.value.trim()    || '';
+  const email    = document.getElementById('q-email')?.value.trim()   || '';
+  const phone    = document.getElementById('q-phone')?.value.trim()   || '';
+  const service  = document.getElementById('q-service')?.value        || '';
+  const rooms    = document.getElementById('q-rooms')?.value.trim()   || '';
+  const budget   = document.getElementById('q-budget')?.value         || '';
+  const timeline = document.getElementById('q-timeline')?.value       || '';
+  const details  = document.getElementById('q-details')?.value.trim() || '';
 
-  const totalQty = cart.reduce((sum, item) => sum + item.qty, 0);
+  const errEl = document.getElementById('quote-form-error');
+  const btn   = document.getElementById('quote-submit-btn');
 
-  if (totalQty > 0) {
-    badge.textContent = totalQty;
-    badge.hidden = false;
-    badge.classList.remove('badge-animate');
-    void badge.offsetWidth;
-    badge.classList.add('badge-animate');
-  } else {
-    badge.hidden = true;
-  }
-}
-
-updateCartBadge();
-
-function renderCartDrawer() {
-  const listEl   = document.getElementById('cart-items-list');
-  const emptyEl  = document.getElementById('cart-empty');
-  const footerEl = document.getElementById('cart-footer');
-  const totalEl  = document.getElementById('cart-total-price');
-
-  if (!listEl || !emptyEl) return;
-
-  if (cart.length === 0) {
-    listEl.innerHTML = '';
-    emptyEl.hidden = false;   /* just show the empty message — don't move it */
-    if (footerEl) footerEl.hidden = true;
+  if (!name || !email || !phone || !service || !details) {
+    if (errEl) { errEl.textContent = 'Please fill in all required fields (marked with *).'; errEl.hidden = false; }
     return;
   }
 
-  emptyEl.hidden = true;
-  listEl.innerHTML = '';
-
-  cart.forEach((item) => {
-    const row = document.createElement('div');
-    row.className = 'cart-item';
-    row.innerHTML =
-      `<img class="cart-item__img" src="${item.image}" alt="${item.name}" />` +
-      `<div class="cart-item__details">` +
-        `<p class="cart-item__name">${item.name}</p>` +
-        `<p class="cart-item__meta">${item.options}</p>` +
-        `<p class="cart-item__price">${item.price}</p>` +
-        `<div class="cart-item__controls">` +
-          `<button class="qty-btn" data-key="${item.key}" data-action="decrease" aria-label="Decrease" type="button">−</button>` +
-          `<span class="qty-value">${item.qty}</span>` +
-          `<button class="qty-btn" data-key="${item.key}" data-action="increase" aria-label="Increase" type="button">+</button>` +
-          `<button class="cart-item__remove" data-key="${item.key}" type="button">Remove</button>` +
-        `</div>` +
-      `</div>`;
-    listEl.appendChild(row);
-  });
-
-  if (footerEl) footerEl.hidden = false;
-
-  const total = cart.reduce((sum, item) => sum + parsePrice(item.price) * item.qty, 0);
-  if (totalEl) totalEl.textContent = `RWF ` + total.toLocaleString();
-
-  listEl.querySelectorAll('.qty-btn').forEach((btn) => {
-    btn.addEventListener('click', () => changeQty(btn.dataset.key, btn.dataset.action));
-  });
-
-  listEl.querySelectorAll('.cart-item__remove').forEach((btn) => {
-    btn.addEventListener('click', () => removeFromCart(btn.dataset.key));
-  });
-}
-
-function changeQty(key, action) {
-  const item = cart.find((i) => i.key === key);
-  if (!item) return;
-
-  const itemMax = item.maxQty !== undefined ? item.maxQty : MAX_QTY;
-
-  if (action === 'increase') {
-    if (item.qty < itemMax) item.qty++;
-  } else if (action === 'decrease') {
-    item.qty--;
-    if (item.qty <= 0) {
-      removeFromCart(key);
-      return;
-    }
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    if (errEl) { errEl.textContent = 'Please enter a valid email address.'; errEl.hidden = false; }
+    return;
   }
 
-  saveCart(cart);
-  updateCartBadge();
-  renderCartDrawer();
+  if (errEl) errEl.hidden = true;
+  if (btn) { btn.textContent = 'Sending…'; btn.classList.add('loading'); }
+
+  const payload = { name, email, phone, service, rooms, budget, timeline, details };
+
+  try {
+    const res  = await fetch(`${API_BASE}/api/quotations`, {
+      method:  'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body:    JSON.stringify(payload),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Server error');
+
+    const wrap    = document.getElementById('quote-form-wrap');
+    const success = document.getElementById('quote-success');
+    if (wrap) wrap.style.display = 'none';
+    if (success) success.hidden = false;
+
+  } catch (err) {
+    // Fallback: open WhatsApp with form data if backend is unreachable
+    const msg =
+      `Hello MOUN! I'd like to request a quotation.\n\n` +
+      `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n` +
+      `Service: ${service}\n` +
+      (rooms    ? `Rooms: ${rooms}\n`       : '') +
+      (budget   ? `Budget: ${budget}\n`     : '') +
+      (timeline ? `Timeline: ${timeline}\n` : '') +
+      `\nProject Details: ${details}`;
+
+    window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+
+    const wrap    = document.getElementById('quote-form-wrap');
+    const success = document.getElementById('quote-success');
+    if (wrap) wrap.style.display = 'none';
+    if (success) success.hidden = false;
+
+  } finally {
+    if (btn) { btn.textContent = 'Send Quotation Request'; btn.classList.remove('loading'); }
+  }
 }
 
-function removeFromCart(key) {
-  cart = cart.filter((i) => i.key !== key);
-  saveCart(cart);
-  updateCartBadge();
-  renderCartDrawer();
-}
-
-document.getElementById('cart-clear-btn')?.addEventListener('click', () => {
-  cart = [];
-  saveCart(cart);
-  updateCartBadge();
-  renderCartDrawer();
-});
+window.submitQuotation = submitQuotation;
 
 function parsePrice(priceStr) {
   return parseInt(String(priceStr).replace(/[^0-9]/g, ''), 10) || 0;
 }
+
 /* ================================================================
    CHECKOUT SYSTEM
    Flow:
