@@ -442,6 +442,140 @@ def update_order(order_id):
 # ── Root redirect ──────────────────────────────────────────────
 # The frontend is served separately (Vercel / Netlify / GitHub Pages).
 # Visiting the backend root redirects to the admin dashboard.
+# ── POST /api/quotations ─────────────────────────────────────
+
+@app.route('/api/quotations', methods=['POST'])
+def create_quotation():
+    data = request.get_json() or {}
+    required = ['name', 'email', 'phone', 'service', 'details']
+    for field in required:
+        if not data.get(field):
+            return jsonify({'error': f'Missing required field: {field}'}), 400
+
+    conn = get_connection()
+    cur  = conn.cursor()
+    try:
+        cur.execute("""
+            INSERT INTO quotations
+              (name, email, phone, service, rooms, budget, timeline, details, status)
+            VALUES (%s, %s, %s, %s, %s, %s, %s, %s, 'new')
+            RETURNING id
+        """, (
+            str(data.get('name',     '')).strip(),
+            str(data.get('email',    '')).strip(),
+            str(data.get('phone',    '')).strip(),
+            str(data.get('service',  '')).strip(),
+            str(data.get('rooms',    '') or '').strip() or None,
+            str(data.get('budget',   '') or '').strip() or None,
+            str(data.get('timeline', '') or '').strip() or None,
+            str(data.get('details',  '')).strip(),
+        ))
+        quotation_id = cur.fetchone()['id']
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        app.logger.error(f"Quotation DB error: {e}")
+        return jsonify({'error': 'Failed to save quotation. Please try again.'}), 500
+    finally:
+        cur.close()
+        conn.close()
+
+    _send_quotation_email(quotation_id, data)
+    return jsonify({'success': True, 'quotation_id': quotation_id}), 201
+
+
+def _send_quotation_email(quotation_id: int, data: dict):
+    smtp_email    = os.environ.get('SMTP_EMAIL', '')
+    smtp_password = os.environ.get('SMTP_PASSWORD', '')
+    admin_email   = os.environ.get('ADMIN_EMAIL', smtp_email)
+    if not smtp_email or not smtp_password:
+        return
+    try:
+        msg = MIMEMultipart('alternative')
+        msg['Subject'] = f'MOUN — New Quotation Request #{quotation_id} from {data.get("name", "")}'
+        msg['From']    = smtp_email
+        msg['To']      = admin_email
+        rows = [
+            ('Name',     data.get('name',     '—')),
+            ('Email',    data.get('email',    '—')),
+            ('Phone',    data.get('phone',    '—')),
+            ('Service',  data.get('service',  '—')),
+            ('Rooms',    data.get('rooms',    '—') or '—'),
+            ('Budget',   data.get('budget',   '—') or '—'),
+            ('Timeline', data.get('timeline', '—') or '—'),
+        ]
+        rows_html = ''.join(
+            f'<tr><td style="padding:6px 12px;color:#888;font-size:13px"><strong>{k}</strong></td>'
+            f'<td style="padding:6px 12px;font-size:13px">{v}</td></tr>'
+            for k, v in rows
+        )
+        html_body = f"""<!DOCTYPE html><html><body style="margin:0;padding:0;background:#F5EDE0;font-family:sans-serif;">
+  <div style="max-width:560px;margin:40px auto;background:#fff;border-radius:12px;overflow:hidden;">
+    <div style="background:#1E150A;padding:24px 32px;">
+      <h1 style="color:#C9A97A;font-size:22px;margin:0;font-weight:500;">moun.</h1>
+      <p style="color:rgba(245,239,230,0.6);font-size:12px;margin:4px 0 0;">New Quotation Request #{quotation_id}</p>
+    </div>
+    <div style="padding:24px 32px;">
+      <table style="width:100%;border-collapse:collapse;">{rows_html}</table>
+      <div style="margin-top:16px;background:#F5EDE0;border-radius:8px;padding:16px;">
+        <p style="font-size:12px;color:#888;margin:0 0 6px;">Project Details</p>
+        <p style="font-size:14px;color:#1E150A;margin:0;line-height:1.6;">{data.get('details', '')}</p>
+      </div>
+      <div style="margin-top:20px;text-align:center;">
+        <a href="mailto:{data.get('email', '')}" style="padding:12px 24px;background:#8B6C4A;color:#fff;border-radius:8px;text-decoration:none;font-size:14px;">Reply via Email</a>
+      </div>
+    </div>
+  </div></body></html>"""
+        text_body = "\n".join(f"{k}: {v}" for k, v in rows) + f"\n\nDetails:\n{data.get('details', '')}"
+        msg.attach(MIMEText(text_body, 'plain'))
+        msg.attach(MIMEText(html_body, 'html'))
+        with smtplib.SMTP_SSL('smtp.gmail.com', 465) as server:
+            server.login(smtp_email, smtp_password)
+            server.sendmail(smtp_email, admin_email, msg.as_string())
+    except Exception as e:
+        app.logger.error(f"Failed to send quotation email: {e}")
+
+
+# ── GET /api/quotations ──────────────────────────────────────
+
+@app.route('/api/quotations', methods=['GET'])
+@require_admin_session
+def list_quotations():
+    conn = get_connection()
+    cur  = conn.cursor()
+    cur.execute("""
+        SELECT id, name, email, phone, service, rooms, budget, timeline,
+               details, status, created_at
+        FROM quotations ORDER BY created_at DESC
+    """)
+    rows = [dict(r) for r in cur.fetchall()]
+    for r in rows:
+        if r.get('created_at'):
+            r['created_at'] = r['created_at'].isoformat()
+    cur.close()
+    conn.close()
+    return jsonify({'quotations': rows}), 200
+
+
+# ── PUT /api/quotations/<id> ─────────────────────────────────
+
+@app.route('/api/quotations/<int:qid>', methods=['PUT'])
+@require_admin_session
+def update_quotation(qid):
+    data = request.get_json() or {}
+    valid = ('new', 'in_review', 'quoted', 'accepted', 'declined')
+    new_status = data.get('status')
+    if new_status not in valid:
+        return jsonify({'error': f'status must be one of: {", ".join(valid)}'}), 400
+    conn = get_connection()
+    cur  = conn.cursor()
+    cur.execute("UPDATE quotations SET status = %s WHERE id = %s RETURNING id", (new_status, qid))
+    updated = cur.fetchone()
+    conn.commit(); cur.close(); conn.close()
+    if not updated:
+        return jsonify({'error': 'Quotation not found'}), 404
+    return jsonify({'success': True, 'quotation_id': qid}), 200
+
 
 @app.route('/')
 def serve_index():
