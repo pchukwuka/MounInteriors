@@ -4,7 +4,6 @@ const PRODUCTS = [
     name: 'Ceramic Planter',
     category: 'planters',
     categoryLabel: 'Planters',
-    price: 'RWF 12,000',
     badge: 'New',
     image: 'images/ceramic planter.JPG',
     description: 'A beautifully hand-finished ceramic planter in warm terracotta tones. Perfect for succulents, small indoor plants, or as a standalone décor piece. Adds an earthy, calming touch to any shelf or windowsill.',
@@ -24,7 +23,6 @@ const PRODUCTS = [
     name: 'Scented Candle',
     category: 'candles',
     categoryLabel: 'Candles',
-    price: 'RWF 8,500',
     badge: 'Bestseller',
     image: 'images/candle5.jpeg',
     description: 'Hand-poured soy wax candle with a warm, long-lasting scent. Burns cleanly for up to 40 hours. Available in multiple signature MOUN fragrances. Perfect for creating a calm, welcoming atmosphere in any room.',
@@ -43,7 +41,6 @@ const PRODUCTS = [
     name: 'Terracotta Vase',
     category: 'vases',
     categoryLabel: 'Vases',
-    price: 'RWF 15,000',
     badge: 'Popular',
     image: 'images/terracotta vase.JPG',
     description: 'A statement terracotta vase inspired by traditional African pottery forms. Handcrafted with a matte finish that brings warmth and texture to any interior space. Use with dried botanicals or as a standalone sculptural piece.',
@@ -63,7 +60,6 @@ const PRODUCTS = [
     name: 'Woven Basket',
     category: 'baskets',
     categoryLabel: 'Baskets',
-    price: 'RWF 18,000',
     badge: 'Handmade',
     image: 'images/woven basket.WEBP',
     description: 'Handwoven by local Rwandan artisans using traditional weaving techniques. This storage basket doubles as a beautiful décor piece — use it for blankets, plants, or as a statement accent in your living room.',
@@ -82,7 +78,6 @@ const PRODUCTS = [
     name: 'Dried Botanical Bunch',
     category: 'accessories',
     categoryLabel: 'Accessories',
-    price: 'RWF 9,000',
     badge: 'New',
     image: 'images/neutral pampas.JPG',
     description: 'A curated bunch of dried botanicals and pampas grass — zero maintenance, maximum impact. Pairs perfectly with our terracotta vases. Lasts for months with no watering required.',
@@ -100,7 +95,6 @@ const PRODUCTS = [
     name: 'Rattan Wall Mirror',
     category: 'accessories',
     categoryLabel: 'Accessories',
-    price: 'RWF 35,000',
     badge: 'Limited',
     image: 'images/natural rattan.JPG',
     description: 'A circular wall mirror framed in hand-woven natural rattan. Adds depth, light, and a bohemian warmth to any wall. Available in two sizes. Each piece is slightly unique due to the handmade nature of the rattan frame.',
@@ -118,7 +112,6 @@ const PRODUCTS = [
     name: 'Linen Throw Cushion',
     category: 'accessories',
     categoryLabel: 'Accessories',
-    price: 'RWF 11,000',
     badge: 'Bestseller',
     image: 'images/sand beige.JPG',
     description: 'A soft linen throw cushion in muted, earthy tones designed to complement any sofa or bed. Removable cover for easy washing. The subtle texture adds warmth without overpowering your existing décor.',
@@ -138,7 +131,6 @@ const PRODUCTS = [
     name: 'Wooden Tray Set',
     category: 'accessories',
     categoryLabel: 'Accessories',
-    price: 'RWF 22,000',
     badge: 'New',
     image: 'images/light arcacia.JPG',
     description: 'A set of two nesting wooden trays in smooth acacia wood. Use on your coffee table to style candles and botanicals, or on your dresser for jewellery and daily essentials. A simple way to instantly elevate any surface.',
@@ -189,7 +181,6 @@ function createProductCard(product) {
     <div class="product-card__body">
       <p class="product-card__category">${product.categoryLabel}</p>
       <h3 class="product-card__name">${product.name}</h3>
-      <p class="product-card__price">${product.price}</p>
       <span class="product-card__btn">View Product</span>
     </div>
   `;
