@@ -84,15 +84,15 @@ const PRODUCTS = [
     categoryLabel: 'Accessories',
     price: 'RWF 9,000',
     badge: 'New',
-    image: 'images/dried-botanicals.jpeg',
+    image: 'images/neutral pampas.JPG',
     description: 'A curated bunch of dried botanicals and pampas grass — zero maintenance, maximum impact. Pairs perfectly with our terracotta vases. Lasts for months with no watering required.',
     sizes: [
       { value: 'Standard', available: true },
     ],
     prints: [
-      { name: 'Neutral Pampas', image: 'images/dried-botanicals.jpeg', available: true },
-      { name: 'Russet & Brown', image: 'images/dried-botanicals-brown.jpeg', available: true },
-      { name: 'Ivory White', image: 'images/dried-botanicals-white.jpeg', available: true },
+      { name: 'Neutral Pampas', image: 'images/neutral pampas.JPG', available: true },
+      { name: 'Russet & Brown', image: 'images/russet brown.JPG', available: true },
+      { name: 'Ivory White', image: 'images/ivory white.JPG', available: true },
     ],
   },
   {
@@ -102,15 +102,15 @@ const PRODUCTS = [
     categoryLabel: 'Accessories',
     price: 'RWF 35,000',
     badge: 'Limited',
-    image: 'images/rattan-mirror.jpeg',
+    image: 'images/natural rattan.JPG',
     description: 'A circular wall mirror framed in hand-woven natural rattan. Adds depth, light, and a bohemian warmth to any wall. Available in two sizes. Each piece is slightly unique due to the handmade nature of the rattan frame.',
     sizes: [
       { value: '40cm', available: true },
       { value: '60cm', available: true },
     ],
     prints: [
-      { name: 'Natural Rattan', image: 'images/rattan-mirror.jpeg', available: true },
-      { name: 'Bleached White', image: 'images/rattan-mirror-white.jpeg', available: false },
+      { name: 'Natural Rattan', image: 'images/natural rattan.JPG', available: true },
+      { name: 'Bleached White', image: 'images/bleached white.JPG', available: false },
     ],
   },
   {
@@ -120,17 +120,17 @@ const PRODUCTS = [
     categoryLabel: 'Accessories',
     price: 'RWF 11,000',
     badge: 'Bestseller',
-    image: 'images/linen-cushion.jpeg',
+    image: 'images/sand beige.JPG',
     description: 'A soft linen throw cushion in muted, earthy tones designed to complement any sofa or bed. Removable cover for easy washing. The subtle texture adds warmth without overpowering your existing décor.',
     sizes: [
       { value: '40x40cm', available: true },
       { value: '50x50cm', available: true },
     ],
     prints: [
-      { name: 'Sand Beige', image: 'images/linen-cushion.jpeg', available: true },
-      { name: 'Terracotta', image: 'images/linen-cushion-terracotta.jpeg', available: true },
-      { name: 'Sage Green', image: 'images/linen-cushion-sage.jpeg', available: true },
-      { name: 'Dusty Rose', image: 'images/linen-cushion-rose.jpeg', available: false },
+      { name: 'Sand Beige', image: 'images/sand beige.JPG', available: true },
+      { name: 'Terracotta', image: 'images/terracotta pillow.JPG', available: true },
+      { name: 'Sage Green', image: 'images/sage green.JPG', available: true },
+      { name: 'Dusty Rose', image: 'images/dusty rose.JPG', available: false },
     ],
   },
   {
@@ -140,14 +140,14 @@ const PRODUCTS = [
     categoryLabel: 'Accessories',
     price: 'RWF 22,000',
     badge: 'New',
-    image: 'images/wooden-tray.jpeg',
+    image: 'images/light arcacia.JPG',
     description: 'A set of two nesting wooden trays in smooth acacia wood. Use on your coffee table to style candles and botanicals, or on your dresser for jewellery and daily essentials. A simple way to instantly elevate any surface.',
     sizes: [
       { value: 'Set of 2', available: true },
     ],
     prints: [
-      { name: 'Light Acacia', image: 'images/wooden-tray.jpeg', available: true },
-      { name: 'Dark Walnut', image: 'images/wooden-tray-dark.jpeg', available: true },
+      { name: 'Light Acacia', image: 'images/light arcacia.JPG', available: true },
+      { name: 'Dark Walnut', image: 'images/dark walnut.JPG', available: true },
     ],
   },
 ];
