@@ -6,7 +6,7 @@ const PRODUCTS = [
     categoryLabel: 'Planters',
     price: 'RWF 12,000',
     badge: 'New',
-    image: 'images/ceramic-planter.jpeg',
+    image: 'images/ceramic planter.JPG',
     description: 'A beautifully hand-finished ceramic planter in warm terracotta tones. Perfect for succulents, small indoor plants, or as a standalone décor piece. Adds an earthy, calming touch to any shelf or windowsill.',
     sizes: [
       { value: 'Small', available: true },
@@ -14,9 +14,9 @@ const PRODUCTS = [
       { value: 'Large', available: false },
     ],
     prints: [
-      { name: 'Terracotta', image: 'images/ceramic-planter.jpeg', available: true },
-      { name: 'Sage Green', image: 'images/ceramic-planter-green.jpeg', available: true },
-      { name: 'Cream White', image: 'images/ceramic-planter-white.jpeg', available: true },
+      { name: 'Terracotta', image: 'images/ceramic planter.JPG', available: true },
+      { name: 'Sage Green', image: 'images/sage green ceramic.JPG', available: true },
+      { name: 'Cream White', image: 'images/cream white.JPG', available: true },
     ],
   },
   {
@@ -26,16 +26,16 @@ const PRODUCTS = [
     categoryLabel: 'Candles',
     price: 'RWF 8,500',
     badge: 'Bestseller',
-    image: 'images/scented-candle.jpeg',
+    image: 'images/candle5.jpeg',
     description: 'Hand-poured soy wax candle with a warm, long-lasting scent. Burns cleanly for up to 40 hours. Available in multiple signature MOUN fragrances. Perfect for creating a calm, welcoming atmosphere in any room.',
     sizes: [
       { value: 'Standard', available: true },
     ],
     prints: [
-      { name: 'Vanilla & Sandalwood', image: 'images/scented-candle.jpeg', available: true },
-      { name: 'Citrus & Bergamot', image: 'images/scented-candle-citrus.jpeg', available: true },
-      { name: 'Oud & Amber', image: 'images/scented-candle-oud.jpeg', available: true },
-      { name: 'Fresh Linen', image: 'images/scented-candle-linen.jpeg', available: true },
+      { name: 'Vanilla & Sandalwood', image: 'images/candle4.jpeg', available: true },
+      { name: 'Citrus & Bergamot', image: 'images/candle3.jpeg', available: true },
+      { name: 'Oud & Amber', image: 'images/candle2 (Customisable Candle).jpeg', available: true },
+      { name: 'Fresh Linen', image: 'images/candle1.jpeg', available: true },
     ],
   },
   {
@@ -45,7 +45,7 @@ const PRODUCTS = [
     categoryLabel: 'Vases',
     price: 'RWF 15,000',
     badge: 'Popular',
-    image: 'images/terracotta-vase.jpeg',
+    image: 'images/terracotta vase.JPG',
     description: 'A statement terracotta vase inspired by traditional African pottery forms. Handcrafted with a matte finish that brings warmth and texture to any interior space. Use with dried botanicals or as a standalone sculptural piece.',
     sizes: [
       { value: 'Small', available: true },
@@ -53,9 +53,9 @@ const PRODUCTS = [
       { value: 'Tall', available: true },
     ],
     prints: [
-      { name: 'Terracotta', image: 'images/terracotta-vase.jpeg', available: true },
-      { name: 'Matte Black', image: 'images/terracotta-vase-black.jpeg', available: true },
-      { name: 'Sand Beige', image: 'images/terracotta-vase-beige.jpeg', available: true },
+      { name: 'Terracotta', image: 'images/terracotta vase.JPG', available: true },
+      { name: 'Matte Black', image: 'images/matte black terracotta.JPG', available: true },
+      { name: 'Sand Beige', image: 'images/sand beige terracotta.JPG', available: true },
     ],
   },
   {
@@ -65,7 +65,7 @@ const PRODUCTS = [
     categoryLabel: 'Baskets',
     price: 'RWF 18,000',
     badge: 'Handmade',
-    image: 'images/woven-basket.jpeg',
+    image: 'images/woven basket.WEBP',
     description: 'Handwoven by local Rwandan artisans using traditional weaving techniques. This storage basket doubles as a beautiful décor piece — use it for blankets, plants, or as a statement accent in your living room.',
     sizes: [
       { value: 'Small', available: true },
@@ -73,8 +73,8 @@ const PRODUCTS = [
       { value: 'Large', available: false },
     ],
     prints: [
-      { name: 'Natural Straw', image: 'images/woven-basket.jpeg', available: true },
-      { name: 'Black & Natural', image: 'images/woven-basket-black.jpeg', available: true },
+      { name: 'Natural Straw', image: 'images/woven basket.WEBP', available: true },
+      { name: 'Black & Natural', image: 'images/black and natural wooven basket.JPG', available: true },
     ],
   },
   {
