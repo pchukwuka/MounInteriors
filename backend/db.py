@@ -67,6 +67,22 @@ def init_db(retries: int = 5, delay: int = 3):
         );
     """)
 
+    cur.execute("""
+        CREATE TABLE IF NOT EXISTS quotations (
+            id         SERIAL PRIMARY KEY,
+            name       VARCHAR(255) NOT NULL,
+            email      VARCHAR(255) NOT NULL,
+            phone      VARCHAR(100) NOT NULL,
+            service    VARCHAR(255) NOT NULL,
+            rooms      TEXT,
+            budget     VARCHAR(100),
+            timeline   VARCHAR(100),
+            details    TEXT         NOT NULL,
+            status     VARCHAR(50)  NOT NULL DEFAULT 'new',
+            created_at TIMESTAMPTZ  NOT NULL DEFAULT NOW()
+        );
+    """)
+    
     conn.commit()
     cur.close()
     conn.close()
