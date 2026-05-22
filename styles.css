@@ -22,8 +22,8 @@
   --clr-wa-green:    #25D366;   /* WhatsApp green */
 
   /* Typography */
-  --ff-display: 'Playfair Display', Georgia, serif;
-  --ff-body:    'DM Sans', 'Helvetica Neue', sans-serif;
+  --ff-display: 'Montserrat', 'Helvetica Neue', sans-serif;
+ --ff-body: 'Montserrat', 'Helvetica Neue', sans-serif;
 
   /* Spacing */
   --space-xs:  0.5rem;
