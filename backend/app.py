@@ -742,86 +742,46 @@ ADMIN_HTML = """
     </div>
   </div>
 
-<!-- Tab navigation -->
-  <div style="display:flex;gap:0;border-bottom:2px solid #e0d4c0;background:#fff;margin-bottom:0;">
-    <button id="tab-btn-orders" onclick="switchTab('orders')" style="padding:0.75rem 1.5rem;background:none;border:none;border-bottom:3px solid #8B6C4A;color:#1E150A;font-weight:600;cursor:pointer;font-size:0.9rem;">📦 Orders</button>
-    <button id="tab-btn-quotations" onclick="switchTab('quotations')" style="padding:0.75rem 1.5rem;background:none;border:none;border-bottom:3px solid transparent;color:#7A6A52;cursor:pointer;font-size:0.9rem;font-weight:400;">📋 Quotations</button>
+  <div class="toolbar">
+    <select id="filter-payment">
+      <option value="">All payment statuses</option>
+      <option value="pending">Pending</option>
+      <option value="confirmed">Confirmed</option>
+      <option value="rejected">Rejected</option>
+    </select>
+    <select id="filter-order">
+      <option value="">All order statuses</option>
+      <option value="new">New</option>
+      <option value="processing">Processing</option>
+      <option value="shipped">Shipped</option>
+      <option value="delivered">Delivered</option>
+      <option value="cancelled">Cancelled</option>
+    </select>
+    <button onclick="loadOrders()">🔄 Refresh</button>
   </div>
 
-  <!-- ORDERS TAB -->
-  <div id="tab-orders">
-    <div class="toolbar">
-      <select id="filter-payment">
-        <option value="">All payment statuses</option>
-        <option value="pending">Pending</option>
-        <option value="confirmed">Confirmed</option>
-        <option value="rejected">Rejected</option>
-      </select>
-      <select id="filter-order">
-        <option value="">All order statuses</option>
-        <option value="new">New</option>
-        <option value="processing">Processing</option>
-        <option value="shipped">Shipped</option>
-        <option value="delivered">Delivered</option>
-        <option value="cancelled">Cancelled</option>
-      </select>
-      <button onclick="loadOrders()">🔄 Refresh</button>
-    </div>
-    <div class="stats">
-      <div class="stat-card"><div class="label">Total Orders</div><div class="value" id="stat-total">—</div></div>
-      <div class="stat-card"><div class="label">Pending Payment</div><div class="value" id="stat-pending">—</div></div>
-      <div class="stat-card"><div class="label">Confirmed</div><div class="value" id="stat-confirmed">—</div></div>
-      <div class="stat-card"><div class="label">Revenue (Confirmed)</div><div class="value" id="stat-revenue">—</div></div>
-    </div>
-    <div id="error-msg" hidden></div>
-    <div id="loading">Loading orders...</div>
-    <div class="table-wrap" id="table-wrap" hidden>
-      <table>
-        <thead>
-          <tr>
-            <th>#</th><th>Date</th><th>Customer</th><th>Phone</th>
-            <th>Method</th><th>Items</th><th>Total</th>
-            <th>Payment</th><th>Order Status</th><th>Receipt</th><th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="orders-tbody"></tbody>
-      </table>
-    </div>
+  <div class="stats">
+    <div class="stat-card"><div class="label">Total Orders</div><div class="value" id="stat-total">—</div></div>
+    <div class="stat-card"><div class="label">Pending Payment</div><div class="value" id="stat-pending">—</div></div>
+    <div class="stat-card"><div class="label">Confirmed</div><div class="value" id="stat-confirmed">—</div></div>
+    <div class="stat-card"><div class="label">Revenue (Confirmed)</div><div class="value" id="stat-revenue">—</div></div>
   </div>
 
-  <!-- QUOTATIONS TAB -->
-  <div id="tab-quotations" style="display:none;">
-    <div class="toolbar">
-      <select id="filter-quote-status">
-        <option value="">All statuses</option>
-        <option value="new">New</option>
-        <option value="in_review">In Review</option>
-        <option value="quoted">Quoted</option>
-        <option value="accepted">Accepted</option>
-        <option value="declined">Declined</option>
-      </select>
-      <button onclick="loadQuotations()">🔄 Refresh</button>
-    </div>
-    <div class="stats">
-      <div class="stat-card"><div class="label">Total Requests</div><div class="value" id="q-stat-total">—</div></div>
-      <div class="stat-card"><div class="label">New</div><div class="value" id="q-stat-new">—</div></div>
-      <div class="stat-card"><div class="label">In Review</div><div class="value" id="q-stat-review">—</div></div>
-      <div class="stat-card"><div class="label">Accepted</div><div class="value" id="q-stat-accepted">—</div></div>
-    </div>
-    <div id="q-error-msg" hidden></div>
-    <div id="q-loading" hidden>Loading quotations...</div>
-    <div class="table-wrap" id="q-table-wrap" hidden>
-      <table>
-        <thead>
-          <tr>
-            <th>#</th><th>Date</th><th>Name</th><th>Email</th><th>Phone</th>
-            <th>Service</th><th>Budget</th><th>Timeline</th><th>Status</th><th>Actions</th>
-          </tr>
-        </thead>
-        <tbody id="quotations-tbody"></tbody>
-      </table>
-    </div>
+  <div id="error-msg" hidden></div>
+  <div id="loading">Loading orders...</div>
+  <div class="table-wrap" id="table-wrap" hidden>
+    <table>
+      <thead>
+        <tr>
+          <th>#</th><th>Date</th><th>Customer</th><th>Phone</th>
+          <th>Method</th><th>Items</th><th>Total</th>
+          <th>Payment</th><th>Order Status</th><th>Receipt</th><th>Actions</th>
+        </tr>
+      </thead>
+      <tbody id="orders-tbody"></tbody>
+    </table>
   </div>
+</div>
 
 <!-- Modal -->
 <div class="modal-overlay" id="modal-overlay">
@@ -1017,136 +977,6 @@ ADMIN_HTML = """
 
   async function viewOrder(orderId) {
     const res  = await fetch(`${API_BASE}/api/orders/${orderId}?session=${SESSION_TOKEN}`);
-document.getElementById('filter-quote-status').addEventListener('change', () => renderQuotationTable(allQuotations));
-
-  /* ── Tab switching ── */
-  function switchTab(tab) {
-    const isOrders = tab === 'orders';
-    document.getElementById('tab-orders').style.display      = isOrders ? '' : 'none';
-    document.getElementById('tab-quotations').style.display  = isOrders ? 'none' : '';
-    document.getElementById('tab-btn-orders').style.borderBottomColor     = isOrders ? '#8B6C4A' : 'transparent';
-    document.getElementById('tab-btn-orders').style.color                 = isOrders ? '#1E150A' : '#7A6A52';
-    document.getElementById('tab-btn-orders').style.fontWeight            = isOrders ? '600' : '400';
-    document.getElementById('tab-btn-quotations').style.borderBottomColor = isOrders ? 'transparent' : '#8B6C4A';
-    document.getElementById('tab-btn-quotations').style.color             = isOrders ? '#7A6A52' : '#1E150A';
-    document.getElementById('tab-btn-quotations').style.fontWeight        = isOrders ? '400' : '600';
-    if (!isOrders && !allQuotations.length) loadQuotations();
-  }
-
-  /* ── Quotations ── */
-  let allQuotations = [];
-
-  async function loadQuotations() {
-    document.getElementById('q-loading').hidden    = false;
-    document.getElementById('q-table-wrap').hidden = true;
-    document.getElementById('q-error-msg').hidden  = true;
-    try {
-      const res  = await fetch(`${API_BASE}/api/quotations?session=${SESSION_TOKEN}`);
-      const data = await res.json();
-      if (!res.ok) throw new Error(data.error || 'Failed to load');
-      allQuotations = data.quotations;
-      renderQuotationTable(allQuotations);
-      renderQuotationStats(allQuotations);
-    } catch (err) {
-      const el = document.getElementById('q-error-msg');
-      el.textContent = 'Error: ' + err.message;
-      el.hidden = false;
-    } finally {
-      document.getElementById('q-loading').hidden = true;
-    }
-  }
-
-  function renderQuotationStats(qs) {
-    document.getElementById('q-stat-total').textContent    = qs.length;
-    document.getElementById('q-stat-new').textContent      = qs.filter(q => q.status === 'new').length;
-    document.getElementById('q-stat-review').textContent   = qs.filter(q => q.status === 'in_review').length;
-    document.getElementById('q-stat-accepted').textContent = qs.filter(q => q.status === 'accepted').length;
-  }
-
-  function renderQuotationTable(qs) {
-    const filter   = document.getElementById('filter-quote-status').value;
-    const filtered = qs.filter(q => !filter || q.status === filter);
-    const tbody    = document.getElementById('quotations-tbody');
-    tbody.innerHTML = '';
-    if (!filtered.length) {
-      tbody.innerHTML = '<tr><td colspan="10" style="text-align:center;color:#888;padding:2rem">No quotation requests found.</td></tr>';
-      document.getElementById('q-table-wrap').hidden = false;
-      return;
-    }
-    filtered.forEach(q => {
-      const date = new Date(q.created_at).toLocaleDateString('en-GB', {day:'2-digit', month:'short', year:'numeric'});
-      const tr   = document.createElement('tr');
-      tr.innerHTML = `
-        <td><strong>#${q.id}</strong></td>
-        <td style="white-space:nowrap">${date}</td>
-        <td>${q.name}</td>
-        <td><a href="mailto:${q.email}" style="color:#8B6C4A">${q.email}</a></td>
-        <td>${q.phone}</td>
-        <td>${q.service}</td>
-        <td>${q.budget || '—'}</td>
-        <td>${q.timeline || '—'}</td>
-        <td>
-          <select class="status-select" data-qid="${q.id}" style="padding:0.3rem 0.5rem;border-radius:6px;border:1px solid #ccc;font-size:0.82rem;">
-            <option value="new"       ${q.status==='new'       ?'selected':''}>New</option>
-            <option value="in_review" ${q.status==='in_review' ?'selected':''}>In Review</option>
-            <option value="quoted"    ${q.status==='quoted'    ?'selected':''}>Quoted</option>
-            <option value="accepted"  ${q.status==='accepted'  ?'selected':''}>Accepted</option>
-            <option value="declined"  ${q.status==='declined'  ?'selected':''}>Declined</option>
-          </select>
-          <button onclick="updateQuotationStatus(${q.id})" style="margin-left:4px;padding:0.3rem 0.6rem;background:#8B6C4A;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:0.8rem;">Save</button>
-        </td>
-        <td>
-          <button onclick="viewQuotation(${q.id})" style="padding:0.3rem 0.6rem;background:#5a4a3a;color:#fff;border:none;border-radius:6px;cursor:pointer;font-size:0.8rem;">Details</button>
-        </td>`;
-      tbody.appendChild(tr);
-    });
-    document.getElementById('q-table-wrap').hidden = false;
-  }
-
-  async function updateQuotationStatus(qid) {
-    const select = document.querySelector(`.status-select[data-qid="${qid}"]`);
-    if (!select) return;
-    const res = await fetch(`${API_BASE}/api/quotations/${qid}?session=${SESSION_TOKEN}`, {
-      method: 'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ status: select.value }),
-    });
-    if (res.ok) {
-      const q = allQuotations.find(q => q.id === qid);
-      if (q) q.status = select.value;
-      renderQuotationStats(allQuotations);
-      select.style.outline = '2px solid #4CAF50';
-      setTimeout(() => select.style.outline = '', 1500);
-    } else {
-      alert('Failed to update status.');
-    }
-  }
-
-  function viewQuotation(qid) {
-    const q = allQuotations.find(q => q.id === qid);
-    if (!q) return;
-    const date = new Date(q.created_at).toLocaleString('en-GB');
-    document.getElementById('modal-body').innerHTML = `
-      <h2 style="margin:0 0 1rem;font-size:1.2rem;">Quotation Request #${q.id}</h2>
-      <div class="detail-row"><strong>Date</strong> ${date}</div>
-      <div class="detail-row"><strong>Name</strong> ${q.name}</div>
-      <div class="detail-row"><strong>Email</strong> <a href="mailto:${q.email}" style="color:#8B6C4A">${q.email}</a></div>
-      <div class="detail-row"><strong>Phone</strong> ${q.phone}</div>
-      <div class="detail-row"><strong>Service</strong> ${q.service}</div>
-      ${q.rooms    ? `<div class="detail-row"><strong>Rooms</strong> ${q.rooms}</div>` : ''}
-      ${q.budget   ? `<div class="detail-row"><strong>Budget</strong> ${q.budget}</div>` : ''}
-      ${q.timeline ? `<div class="detail-row"><strong>Timeline</strong> ${q.timeline}</div>` : ''}
-      <div class="detail-row"><strong>Status</strong> ${q.status}</div>
-      <div style="margin-top:1rem;background:#F9F5EF;border-radius:8px;padding:1rem;">
-        <p style="font-size:0.75rem;color:#888;text-transform:uppercase;margin:0 0 6px;">Project Details</p>
-        <p style="font-size:0.88rem;line-height:1.6;margin:0;">${q.details}</p>
-      </div>
-      <div style="margin-top:1.25rem;display:flex;gap:0.75rem;flex-wrap:wrap;">
-        <a href="mailto:${q.email}?subject=Your MOUN Quotation Request" style="padding:0.5rem 1rem;background:#8B6C4A;color:#fff;border-radius:8px;text-decoration:none;font-size:0.85rem;">📧 Reply by Email</a>
-        <a href="https://wa.me/${q.phone.replace(/[^0-9]/g,'')}?text=Hello+${encodeURIComponent(q.name)}%2C+thank+you+for+your+quotation+request!" target="_blank" style="padding:0.5rem 1rem;background:#25D366;color:#fff;border-radius:8px;text-decoration:none;font-size:0.85rem;">💬 WhatsApp</a>
-      </div>`;
-    document.getElementById('modal-overlay').classList.add('open');
-  } 
     const data = await res.json();
     if (!res.ok) { alert('Could not load order.'); return; }
     const {order, items} = data;
