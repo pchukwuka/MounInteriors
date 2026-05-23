@@ -22,9 +22,9 @@ from functools import wraps
 from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 
-from flask import Flask, request, jsonify, render_template_string, abort # pyright: ignore[reportMissingImports]
-from flask_cors import CORS # type: ignore
-from dotenv import load_dotenv # type: ignore
+from flask import Flask, request, jsonify, render_template_string, abort
+from flask_cors import CORS
+from dotenv import load_dotenv
 
 from db import get_connection, init_db
 from storage import upload_receipt
@@ -51,7 +51,7 @@ def send_otp_email(otp_code: str) -> bool:
     """
     smtp_email    = os.environ.get('SMTP_EMAIL', '')
     smtp_password = os.environ.get('SMTP_PASSWORD', '')
-    admin_email   = 'gyanarjuna0@gmail.com'
+    admin_email   = os.environ.get('ADMIN_EMAIL', smtp_email)
 
     if not smtp_email or not smtp_password:
         app.logger.error("SMTP_EMAIL or SMTP_PASSWORD not set.")
@@ -186,7 +186,7 @@ def send_otp():
         del otp_store[temp_token]
         return jsonify({'error': 'Failed to send OTP email. Check SMTP settings in .env'}), 500
 
-    admin_email = os.environ.get(admin_email = 'gyanarjuna0@gmail.com')
+    admin_email = os.environ.get('ADMIN_EMAIL', os.environ.get('SMTP_EMAIL', ''))
     masked      = admin_email
     if '@' in admin_email:
         local, domain = admin_email.split('@', 1)
@@ -487,7 +487,7 @@ def create_quotation():
 def _send_quotation_email(quotation_id: int, data: dict):
     smtp_email    = os.environ.get('SMTP_EMAIL', '')
     smtp_password = os.environ.get('SMTP_PASSWORD', '')
-    admin_email   = 'gyanarjuna0@gmail.com'
+    admin_email   = os.environ.get('ADMIN_EMAIL', smtp_email)
     if not smtp_email or not smtp_password:
         return
     try:
@@ -579,7 +579,7 @@ def update_quotation(qid):
 
 @app.route('/')
 def serve_index():
-    from flask import redirect # pyright: ignore[reportMissingImports]
+    from flask import redirect
     return redirect('/admin')
 
 
