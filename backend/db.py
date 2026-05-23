@@ -4,8 +4,8 @@ Handles connection pooling and table creation on startup.
 """
 
 import os
-import psycopg2
-from psycopg2.extras import RealDictCursor
+import psycopg2 # type: ignore
+from psycopg2.extras import RealDictCursor # pyright: ignore[reportMissingModuleSource]
 
 
 def get_connection():
