@@ -1385,19 +1385,52 @@ document.addEventListener('click', function(e) {
 });
 
 function openPfModal(card) {
-  const bgImg = card.querySelector('.pf-card__img') ? card.querySelector('.pf-card__img').style.backgroundImage : '';
-  document.getElementById('pf-modal-img').style.backgroundImage  = bgImg;
-  document.getElementById('pf-modal-badge').textContent = card.querySelector('.pf-card__badge')  ? card.querySelector('.pf-card__badge').textContent  : '';
-  document.getElementById('pf-modal-title').textContent = card.querySelector('.pf-card__title')  ? card.querySelector('.pf-card__title').textContent  : '';
-  document.getElementById('pf-modal-meta').textContent  = card.querySelector('.pf-card__meta')   ? card.querySelector('.pf-card__meta').textContent   : '';
+  const imgDiv   = card.querySelector('.pf-card__img');
+  const modalImg = document.getElementById('pf-modal-img');
+  const video    = imgDiv ? imgDiv.querySelector('video') : null;
+
+  /* Clear previous modal content */
+  if (modalImg) {
+    const prev = modalImg.querySelector('video');
+    if (prev) { prev.pause(); prev.remove(); }
+    modalImg.style.backgroundImage = '';
+  }
+
+  if (video && modalImg) {
+    /* Card uses a video — clone it into the modal */
+    const src = video.querySelector('source')?.src || '';
+    const mv  = document.createElement('video');
+    mv.autoplay   = true;
+    mv.muted      = true;
+    mv.loop       = true;
+    mv.playsInline = true;
+    mv.style.cssText = 'width:100%;height:100%;object-fit:cover;display:block;';
+    const s   = document.createElement('source');
+    s.src     = src;
+    s.type    = 'video/mp4';
+    mv.appendChild(s);
+    modalImg.appendChild(mv);
+  } else if (modalImg) {
+    /* Card still uses a background image — use as before */
+    modalImg.style.backgroundImage = imgDiv ? imgDiv.style.backgroundImage : '';
+  }
+
+  document.getElementById('pf-modal-badge').textContent = card.querySelector('.pf-card__badge')?.textContent || '';
+  document.getElementById('pf-modal-title').textContent = card.querySelector('.pf-card__title')?.textContent || '';
+  document.getElementById('pf-modal-meta').textContent  = card.querySelector('.pf-card__meta')?.textContent  || '';
   document.getElementById('pf-modal-overlay').classList.add('open');
   document.body.style.overflow = 'hidden';
 }
+
 function closePfModal() {
+  const modalImg = document.getElementById('pf-modal-img');
+  if (modalImg) {
+    const v = modalImg.querySelector('video');
+    if (v) { v.pause(); v.remove(); }
+  }
   document.getElementById('pf-modal-overlay').classList.remove('open');
   document.body.style.overflow = '';
 }
-document.addEventListener('keydown', function(e) { if (e.key === 'Escape') closePfModal(); });
 
 /* ============================================================
    CINEMATIC INTRO — video plays then fades to homepage
