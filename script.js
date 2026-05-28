@@ -112,7 +112,7 @@ const PRODUCTS = [
     name: 'Linen Throw Cushion',
     category: 'accessories',
     categoryLabel: 'Accessories',
-    badge: 'Bestseller',
+    badge: 'New',
     image: 'images/sand beige.JPG',
     description: 'A soft linen throw cushion in muted, earthy tones designed to complement any sofa or bed. Removable cover for easy washing. The subtle texture adds warmth without overpowering your existing décor.',
     sizes: [
