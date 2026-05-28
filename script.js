@@ -52,7 +52,7 @@ const PRODUCTS = [
     prints: [
       { name: 'Terracotta', image: 'images/terracotta vase.JPG', available: true },
       { name: 'Matte Black', image: 'images/matte black terracotta.JPG', available: true },
-      { name: 'Sand Beige', image: 'images/sand beige terracotta.JPG', available: true },
+      { name: 'Sand Beige', image: 'images/Sand Beige vase.jpg', available: true },
     ],
   },
   {
