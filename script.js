@@ -899,6 +899,18 @@ async function submitQuotation() {
     const data = await res.json();
     if (!res.ok) throw new Error(data.error || 'Server error');
 
+    // Success — send WhatsApp notification AND show success screen
+    const msg =
+      `Hello MOUN! I'd like to request a quotation.\n\n` +
+      `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n` +
+      `Service: ${service}\n` +
+      (rooms    ? `Rooms: ${rooms}\n`       : '') +
+      (budget   ? `Budget: ${budget}\n`     : '') +
+      (timeline ? `Timeline: ${timeline}\n` : '') +
+      `\nProject Details: ${details}`;
+
+    window.open('https://wa.me/' + WA_NUMBER + '?text=' + encodeURIComponent(msg), '_blank');
+
     const wrap    = document.getElementById('quote-form-wrap');
     const success = document.getElementById('quote-success');
     if (wrap) wrap.style.display = 'none';
