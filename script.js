@@ -31,9 +31,9 @@ const PRODUCTS = [
     ],
     prints: [
       { name: 'Vanilla & Sandalwood', image: 'images/candle4.jpeg', available: true },
-      { name: 'Citrus & Bergamot', image: 'images/candle3.jpeg', available: true },
-      { name: 'Oud & Amber', image: 'images/candle2 (Customisable Candle).jpeg', available: true },
-      { name: 'Fresh Linen', image: 'images/candle1.jpeg', available: true },
+      { name: 'Morning Brew', image: 'images/candle3.jpeg', available: true },
+      { name: 'Virunga Mountains', image: 'images/candle2 (Customisable Candle).jpeg', available: true },
+      { name: 'Lemongrass Tea', image: 'images/candle1.jpeg', available: true },
     ],
   },
   {
