@@ -76,5 +76,5 @@ FIREBASE_CREDENTIALS=your_firebase_json
 
 ---
 
-© 2025 MOUN — Kigali, Rwanda
+© 2026 MOUN — Kigali, Rwanda
 ```
