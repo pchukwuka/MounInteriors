@@ -563,7 +563,7 @@ def list_quotations():
 @require_admin_session
 def update_quotation(qid):
     data = request.get_json() or {}
-    valid = ('new', 'in_review', 'quoted', 'accepted', 'declined')
+    valid = ('new', 'pending', 'contacted', 'closed')
     new_status = data.get('status')
     if new_status not in valid:
         return jsonify({'error': f'status must be one of: {", ".join(valid)}'}), 400
@@ -603,10 +603,10 @@ ADMIN_HTML = """
     .tab-panel { display: none; }
     .tab-panel.active { display: block; }
     /* Quotation badges */
-    .badge--new-q    { background: #D1ECF1; color: #0C5460; }
-    .badge--quoted   { background: #CCE5FF; color: #004085; }
-    .badge--accepted { background: #D4EDDA; color: #155724; }
-    .badge--declined { background: #F8D7DA; color: #721C24; }
+    .badge--new-q      { background: #D1ECF1; color: #0C5460; }
+    .badge--pending-q  { background: #FFF3CD; color: #856404; }
+    .badge--contacted  { background: #CCE5FF; color: #004085; }
+    .badge--closed     { background: #D4EDDA; color: #155724; }
     .q-stats { display: flex; gap: 1rem; padding: 1rem 2rem; flex-wrap: wrap; }
 
     .login-screen {
@@ -810,9 +810,9 @@ ADMIN_HTML = """
       <select id="filter-quote-status" onchange="renderQuotationsTable(allQuotations)">
         <option value="">All statuses</option>
         <option value="new">New</option>
-        <option value="quoted">Quoted</option>
-        <option value="accepted">Accepted</option>
-        <option value="declined">Declined</option>
+        <option value="pending">Pending</option>
+        <option value="contacted">Contacted</option>
+        <option value="closed">Closed</option>
       </select>
       <input type="text" id="search-quote" placeholder="Search name, email, service…" oninput="renderQuotationsTable(allQuotations)"
         style="padding:0.45rem 0.75rem;border:1px solid #ccc;border-radius:6px;font-size:0.88rem;min-width:220px;">
@@ -821,9 +821,9 @@ ADMIN_HTML = """
 
     <div class="q-stats">
       <div class="stat-card"><div class="label">Total Requests</div><div class="value" id="q-stat-total">—</div></div>
-      <div class="stat-card"><div class="label">New / Unreviewed</div><div class="value" id="q-stat-new" style="color:#0C5460">—</div></div>
-      <div class="stat-card"><div class="label">Quoted</div><div class="value" id="q-stat-quoted" style="color:#004085">—</div></div>
-      <div class="stat-card"><div class="label">Accepted</div><div class="value" id="q-stat-accepted" style="color:#155724">—</div></div>
+      <div class="stat-card"><div class="label">New</div><div class="value" id="q-stat-new" style="color:#0C5460">—</div></div>
+      <div class="stat-card"><div class="label">Contacted</div><div class="value" id="q-stat-contacted" style="color:#004085">—</div></div>
+      <div class="stat-card"><div class="label">Closed</div><div class="value" id="q-stat-closed" style="color:#155724">—</div></div>
     </div>
 
     <div id="q-error-msg" hidden style="color:#c0392b;padding:1rem 2rem;"></div>
@@ -1108,13 +1108,13 @@ ADMIN_HTML = """
   }
 
   function renderQuotationsStats(quotations) {
-    const newCount      = quotations.filter(q => q.status === 'new').length;
-    const quotedCount   = quotations.filter(q => q.status === 'quoted').length;
-    const acceptedCount = quotations.filter(q => q.status === 'accepted').length;
-    document.getElementById('q-stat-total').textContent    = quotations.length;
-    document.getElementById('q-stat-new').textContent      = newCount;
-    document.getElementById('q-stat-quoted').textContent   = quotedCount;
-    document.getElementById('q-stat-accepted').textContent = acceptedCount;
+    const newCount       = quotations.filter(q => q.status === 'new').length;
+    const contactedCount = quotations.filter(q => q.status === 'contacted').length;
+    const closedCount    = quotations.filter(q => q.status === 'closed').length;
+    document.getElementById('q-stat-total').textContent     = quotations.length;
+    document.getElementById('q-stat-new').textContent       = newCount;
+    document.getElementById('q-stat-contacted').textContent = contactedCount;
+    document.getElementById('q-stat-closed').textContent    = closedCount;
     const badge = document.getElementById('q-new-badge');
     if (newCount > 0) { badge.textContent = newCount; badge.style.display = 'inline'; }
     else { badge.style.display = 'none'; }
@@ -1153,10 +1153,10 @@ ADMIN_HTML = """
         <td style="white-space:nowrap">${q.timeline||'—'}</td>
         <td>
           <select class="status-select" data-qid="${q.id}" onchange="updateQuotationStatus(${q.id}, this.value)">
-            <option value="new"      ${q.status==='new'      ?'selected':''}>New</option>
-            <option value="quoted"   ${q.status==='quoted'   ?'selected':''}>Quoted</option>
-            <option value="accepted" ${q.status==='accepted' ?'selected':''}>Accepted</option>
-            <option value="declined" ${q.status==='declined' ?'selected':''}>Declined</option>
+            <option value="new"       ${q.status==='new'       ?'selected':''}>New</option>
+            <option value="pending"   ${q.status==='pending'   ?'selected':''}>Pending</option>
+            <option value="contacted" ${q.status==='contacted' ?'selected':''}>Contacted</option>
+            <option value="closed"    ${q.status==='closed'    ?'selected':''}>Closed</option>
           </select>
         </td>
         <td><button class="save-btn" onclick="viewQuotation(${q.id})">Details</button></td>

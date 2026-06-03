@@ -1,5 +1,5 @@
 # ================================================================
-# Aso Luxe Backend — Dockerfile
+# MounInteriors Backend — Dockerfile
 # Builds a container for Google Cloud Run deployment
 # ================================================================
 
